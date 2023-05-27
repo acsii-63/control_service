@@ -1,0 +1,43 @@
+{
+    "id": "3",
+    "sequence_items": [
+   	 {
+   		 "init_sequence": {
+   			 "peripheral": [
+   				 1,
+   				 2,
+   				 3
+   			 ],
+   			 "controller": "CONTROLLER_PX4_VELO_FB"
+   		 }
+   	 },
+   	 {
+   		 "action_sequence": {
+   			 "action": "ACTION_TAKEOFF",
+   			 "param": 2.0000000000
+   		 }
+   	 },
+   	 {
+   		 "travel_sequence": {
+   			 "planner": "PLANNER_MARKER",
+   			 "waypoint": [
+   				 4.0000000000,
+   				 4.0000000000,
+   				 4.0000000000
+   			 ],
+   			 "constraint": [
+   				 1.0000000000,
+   				 1.0000000000,
+   				 1.0000000000
+   			 ],
+   			 "terminate": "TERMINATION_STD"
+   		 }
+   	 },
+   	 {
+   		 "action_sequence": {
+   			 "action": "ACTION_AUTOLAND",
+   			 "param": 2.0000000000
+   		 }
+   	 }
+    ]
+}

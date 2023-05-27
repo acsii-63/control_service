@@ -1,0 +1,3 @@
+/home/pino/pino_ws/local_drone_automation/control_service/test/build/CMakeFiles/edit_cache.dir
+/home/pino/pino_ws/local_drone_automation/control_service/test/build/CMakeFiles/rebuild_cache.dir
+/home/pino/pino_ws/local_drone_automation/control_service/test/build/CMakeFiles/test_protobuf_cpp.dir

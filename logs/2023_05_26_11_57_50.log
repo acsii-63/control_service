@@ -1,0 +1,22 @@
+[11:57:50:446] roslaunch px4 posix_sitl.launch > /home/pino/logs/roslaunch_logs/px4_log.log Command started in thread 139707174385408.
+[11:58:5:446] roslaunch mavros px4.launch fcu_url:="udp://:14540@localhost:14557" > /home/pino/logs/roslaunch_logs/mavros_log.log Command started in thread 139707165992704.
+[11:58:25:447] roslaunch geometric_controller automatic.launch > /home/pino/logs/roslaunch_logs/controller_log.log Command started in thread 139707157600000.
+[11:58:30:961] rosservice call /controller/set_mode "mode: 1
+sub : 2
+timeout: 2" Command started in thread 139707149207296.
+[11:58:42:579] rosservice call /controller/set_mode "mode: 3
+sub : 0
+timeout: <" Command started in thread 139707149207296.
+[11:58:42:580] rostopic pub /controller/flatsetpoint controller_msgs/FlatTarget "header:
+  seq: 0
+  stamp: {secs: 0, nsecs: 0}
+  frame_id: ''
+type_mask: 0
+position: {x: 2, y: 2, z: 2}
+velocity: {x: 0.0, y: 0.0, z: 0.0}
+acceleration: {x: 0.0, y: 0.0, z: 0.0}
+jerk: {x: 0.0, y: 0.0, z: 0.0}
+snap: {x: 0.0, y: 0.0, z: 0.0}" Command started in thread 139707140814592.
+[11:58:43:820] rosservice call /controller/set_mode "mode: 4
+sub : 2
+timeout: 2" Command started in thread 139707132421888.
