@@ -1,0 +1,1 @@
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/share/peripherals_status/cmake/peripherals_statusConfig-version.cmake

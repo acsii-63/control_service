@@ -1,0 +1,6 @@
+devel_space: /home/pino/pino_ws/control_service/catkin_ws/devel
+install: false
+install_space: /home/pino/pino_ws/control_service/catkin_ws/install
+profile: default
+source_space: /home/pino/pino_ws/control_service/catkin_ws/src
+workspace: /home/pino/pino_ws/control_service/catkin_ws
