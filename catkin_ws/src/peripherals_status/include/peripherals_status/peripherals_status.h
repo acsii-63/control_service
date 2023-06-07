@@ -25,6 +25,9 @@
 
 #include "/home/pino/pino_ws/papi/PAPI.h"
 
+const uint32_t uint32_zero = 0;
+ros::Time time_zero(uint32_zero, uint32_zero);
+
 enum DEVICE : int
 {
     FLIR = 0,  // FLIR
@@ -64,12 +67,18 @@ public:
     ros::Subscriber FCU_BAT_sub;
     ros::Subscriber FCU_GPS_sub;
 
-    std::vector<ros::Time> firstTime(20);
-    std::vector<ros::Time> lastTime(20);
+    std::vector<ros::Time> firstTime;
+    std::vector<ros::Time> lastTime;
 
     bool FLIR_image_exist = false;
     bool D455_image_exist = false;
     bool T265_image_exist = false;
+
+    std::vector<int> current_status;
+
+    std::string FLIR_image_path;
+    std::string D455_image_path;
+    std::string T265_image_path;
 
     /****************************/
 
@@ -133,7 +142,7 @@ public:
     int FCU_GPS_exist(const mavros_msgs::GPSINPUT::ConstPtr &msg);
 
     // Return status of a peripheral with it last and first Time
-    int timeStatus(const int _peripheral_index);
+    int timeStatus(int _peripheral_index);
 
     // ROS Message template: const Msg::Header::ConstPtr&
     template <typename message>

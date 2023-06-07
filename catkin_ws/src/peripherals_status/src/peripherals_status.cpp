@@ -8,18 +8,32 @@ PeripheralsStatus::PeripheralsStatus()
 
 PeripheralsStatus::PeripheralsStatus(const ros::NodeHandle &_nh) : nh(_nh)
 {
-    FLIR_sub = nh.subscribe("/camera/image", 5, PeripheralsStatus::FLIR_CallBack);
-    D455_sub = nh.subscribe("/d400/color/image_raw", 5, PeripheralsStatus::D455_CallBack);
-    T265_sub = nh.subscribe("/t265/odom/sample", 5, PeripheralsStatus::T265_CallBack);
-    TERABEE_sub = nh.subscribe(" /mavros/px4flow/ground_distance", 5, PeripheralsStatus::TERABEE_CallBack);
-    RTK_sub = nh.subscribe("/mavros/gpsstatus/gps2/rtk", 5, PeripheralsStatus::RTK_CallBack);
-    FCU_STATE_sub = nh.subscribe("/mavros/state", 5, PeripheralsStatus::FCU_STATE_CallBack);
-    FCU_IMU_sub = nh.subscribe("/mavros/imu/data_raw", 5, PeripheralsStatus::FCU_IMU_CallBack);
-    FCU_ODOM_sub = nh.subscribe("/mavros/odometry/in", 5, PeripheralsStatus::FCU_ODOM_CallBack);
-    FCU_MAG_sub = nh.subscribe("/mavros/imu/mag", 5, PeripheralsStatus::FCU_MAG_CallBack);
-    FCU_PRES_sub = nh.subscribe("/mavros/imu/static_pressure", 5, PeripheralsStatus::FCU_PRES_CallBack);
-    FCU_BAT_sub = nh.subscribe("/mavros/battery", 5, PeripheralsStatus::FCU_BAT_CallBack);
-    FCU_GPS_sub = nh.subscribe(" /mavros/gps_input/gps_input ", 5, PeripheralsStatus::FCU_GPS_CallBack);
+    FLIR_sub = nh.subscribe("/camera/image", 5, &PeripheralsStatus::FLIR_CallBack, this);
+    D455_sub = nh.subscribe("/d400/color/image_raw", 5, &PeripheralsStatus::D455_CallBack, this);
+    T265_sub = nh.subscribe("/t265/odom/sample", 5, &PeripheralsStatus::T265_CallBack, this);
+    TERABEE_sub = nh.subscribe("/mavros/px4flow/ground_distance", 5, &PeripheralsStatus::TERABEE_CallBack, this);
+    RTK_sub = nh.subscribe("/mavros/gpsstatus/gps2/rtk", 5, &PeripheralsStatus::RTK_CallBack, this);
+    FCU_STATE_sub = nh.subscribe("/mavros/state", 5, &PeripheralsStatus::FCU_STATE_CallBack, this);
+    FCU_IMU_sub = nh.subscribe("/mavros/imu/data_raw", 5, &PeripheralsStatus::FCU_IMU_CallBack, this);
+    FCU_ODOM_sub = nh.subscribe("/mavros/odometry/in", 5, &PeripheralsStatus::FCU_ODOM_CallBack, this);
+    FCU_MAG_sub = nh.subscribe("/mavros/imu/mag", 5, &PeripheralsStatus::FCU_MAG_CallBack, this);
+    FCU_PRES_sub = nh.subscribe("/mavros/imu/static_pressure", 5, &PeripheralsStatus::FCU_PRES_CallBack, this);
+    FCU_BAT_sub = nh.subscribe("/mavros/battery", 5, &PeripheralsStatus::FCU_BAT_CallBack, this);
+    FCU_GPS_sub = nh.subscribe("/mavros/gps_input/gps_input", 5, &PeripheralsStatus::FCU_GPS_CallBack, this);
+
+    firstTime.reserve(20);
+    lastTime.reserve(20);
+
+    current_status.reserve(20);
+    for (int i = 0; i < 16; i++)
+    {
+        firstTime[i] = time_zero;
+        current_status[i] = PERIPHERAL_STATUS::UNSPECIFIED;
+    }
+
+    FLIR_image_path = "/home/pino/image/flir_image.png";
+    D455_image_path = "/home/pino/image/d455_image.png";
+    T265_image_path = "/home/pino/image/t265_image.png";
 }
 
 PeripheralsStatus::~PeripheralsStatus()
@@ -28,6 +42,53 @@ PeripheralsStatus::~PeripheralsStatus()
 
 void PeripheralsStatus::FLIR_CallBack(const wfov_camera_msgs::WFOVImage::ConstPtr &msg)
 {
+    if (!FLIR_sub.getNumPublishers())
+    {
+        current_status[DEVICE::FLIR] = PERIPHERAL_STATUS::NOT_FOUND;
+        return;
+    }
+
+    const sensor_msgs::Image &ros_image = msg->image;
+
+    if (!FLIR_image_exist)
+    {
+        FLIR_image_exist = true;
+
+        cv_bridge::CvImagePtr cv_ptr;
+        try
+        {
+            cv_ptr = cv_bridge::toCvCopy(ros_image, sensor_msgs::image_encodings::BGR8);
+        }
+        catch (cv_bridge::Exception &e)
+        {
+            ROS_ERROR("cv_bridge exception: %s", e.what());
+            return;
+        }
+
+        cv::Mat cv_image = cv_ptr->image;
+        if (!cv::imwrite(FLIR_image_path, cv_image))
+            ROS_ERROR("Can not write FLIR image to: %s", FLIR_image_path.c_str());
+    }
+
+    if (ros_image.data.size() > 0)
+    {
+        // First image
+        if (firstTime[DEVICE::FLIR].toSec() <= 0)
+            firstTime[DEVICE::FLIR] = ros::Time::now();
+
+        lastTime[DEVICE::FLIR] = ros::Time::now();
+    }
+    else
+    {
+        firstTime[DEVICE::FLIR] = time_zero;
+    }
+
+    current_status[DEVICE::FLIR] = timeStatus(DEVICE::FLIR);
+
+    for (int i = 0; i <= 15; i++)
+        std::cout << current_status[i] << " ";
+    std::cout << std::endl;
+    std::cout << "==========================" << std::endl;
 }
 
 void PeripheralsStatus::D455_CallBack(const sensor_msgs::Image::ConstPtr &msg)
@@ -153,13 +214,13 @@ int PeripheralsStatus::device_exist(message _msg, int _dev)
     }
 }
 
-int PeripheralsStatus::timeStatus(const int _peripheral_index)
+int PeripheralsStatus::timeStatus(int _peripheral_index)
 {
-    ros::Duration timeSinceLastImage = ros::Time::now() - PeripheralsStatus::lastTime[_peripheral_index];
+    ros::Duration timeSinceLastImage = ros::Time::now() - lastTime[_peripheral_index];
     if (timeSinceLastImage.toSec() > 1.0)
         return PERIPHERAL_STATUS::INACTIVE;
 
-    ros::Duration timeSinceFirstImage = ros::Time::now() - PeripheralsStatus::firstTime[_peripheral_index];
+    ros::Duration timeSinceFirstImage = ros::Time::now() - firstTime[_peripheral_index];
     if (timeSinceFirstImage.toSec() > 5.0)
         return PERIPHERAL_STATUS::ACTIVE;
     else
