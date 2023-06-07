@@ -14,6 +14,9 @@ CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/geometry_m
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/geometry_msgs/Twist.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/geometry_msgs/TwistWithCovariance.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/geometry_msgs/Vector3.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/mavros_msgs/GPSINPUT.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/mavros_msgs/GPSRTK.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/mavros_msgs/State.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/nav_msgs/Odometry.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/ros/advertise_options.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/ros/advertise_service_options.h
@@ -71,9 +74,14 @@ CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/ros/types.
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/ros/wall_timer.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/ros/wall_timer_options.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/rosconsole/macros_generated.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/BatteryState.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/CameraInfo.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/CompressedImage.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/FluidPressure.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/Image.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/Imu.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/MagneticField.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/Range.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/RegionOfInterest.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/sensor_msgs/image_encodings.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/std_msgs/Header.h

@@ -1,10 +1,17 @@
 #include <ros/ros.h>
 
 #include <wfov_camera_msgs/WFOVImage.h>
-
 #include <sensor_msgs/Image.h>
-
 #include <nav_msgs/Odometry.h>
+#include <sensor_msgs/Range.h>
+#include <mavros_msgs/GPSRTK.h>
+#include <mavros_msgs/State.h>
+#include <sensor_msgs/Imu.h>
+#include <sensor_msgs/MagneticField.h>
+#include <sensor_msgs/FluidPressure.h>
+#include <sensor_msgs/BatteryState.h>
+#include <mavros_msgs/GPSINPUT.h>
+
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
@@ -15,6 +22,8 @@
 #include <vector>
 #include <string>
 #include <map>
+
+#include "/home/pino/pino_ws/papi/PAPI.h"
 
 enum DEVICE : int
 {
@@ -36,18 +45,97 @@ enum DEVICE : int
     FCU_GPS    // MAV GPS
 };
 
-std::vector<ros::Time> firstTime;
-std::vector<ros::Time> lastTime;
+class PeripheralsStatus
+{
+public:
+    ros::NodeHandle nh;
+    // ros::NodeHandle nh_private_;
 
-int FLIR_exist(const wfov_camera_msgs::WFOVImage::ConstPtr &msg);
+    ros::Subscriber FLIR_sub;
+    ros::Subscriber D455_sub;
+    ros::Subscriber T265_sub;
+    ros::Subscriber TERABEE_sub;
+    ros::Subscriber RTK_sub;
+    ros::Subscriber FCU_STATE_sub;
+    ros::Subscriber FCU_IMU_sub;
+    ros::Subscriber FCU_ODOM_sub;
+    ros::Subscriber FCU_MAG_sub;
+    ros::Subscriber FCU_PRES_sub;
+    ros::Subscriber FCU_BAT_sub;
+    ros::Subscriber FCU_GPS_sub;
 
-int D455_exist(const sensor_msgs::Image::ConstPtr &msg);
+    std::vector<ros::Time> firstTime(20);
+    std::vector<ros::Time> lastTime(20);
 
-int T265_exist(const nav_msgs::Odometry::ConstPtr &msg);
+    bool FLIR_image_exist = false;
+    bool D455_image_exist = false;
+    bool T265_image_exist = false;
 
-// int TERABEE_exist()
+    /****************************/
 
+    // Default Constructor
+    PeripheralsStatus();
 
-// Device exist?
-template <typename message>
-int device_exist(message _msg, int _dev);
+    // Constructor
+    PeripheralsStatus(const ros::NodeHandle &_nh);
+
+    // Deconstructor:
+    ~PeripheralsStatus();
+
+    void FLIR_CallBack(const wfov_camera_msgs::WFOVImage::ConstPtr &msg);
+
+    void D455_CallBack(const sensor_msgs::Image::ConstPtr &msg);
+
+    void T265_CallBack(const nav_msgs::Odometry::ConstPtr &msg);
+
+    void TERABEE_CallBack(const sensor_msgs::Range::ConstPtr &msg);
+
+    void RTK_CallBack(const mavros_msgs::GPSRTK::ConstPtr &msg);
+
+    void FCU_STATE_CallBack(const mavros_msgs::State::ConstPtr &msg);
+
+    void FCU_IMU_CallBack(const sensor_msgs::Imu::ConstPtr &msg);
+
+    void FCU_ODOM_CallBack(const nav_msgs::Odometry::ConstPtr &msg);
+
+    void FCU_MAG_CallBack(const sensor_msgs::MagneticField::ConstPtr &msg);
+
+    void FCU_PRES_CallBack(const sensor_msgs::FluidPressure::ConstPtr &msg);
+
+    void FCU_BAT_CallBack(const sensor_msgs::BatteryState::ConstPtr &msg);
+
+    void FCU_GPS_CallBack(const mavros_msgs::GPSINPUT::ConstPtr &msg);
+
+    /****************************/
+
+    int FLIR_exist(const wfov_camera_msgs::WFOVImage::ConstPtr &msg);
+
+    int D455_exist(const sensor_msgs::Image::ConstPtr &msg);
+
+    int T265_exist(const nav_msgs::Odometry::ConstPtr &msg);
+
+    int TERABEE_exist(const sensor_msgs::Range::ConstPtr &msg);
+
+    int RTK_exist(const mavros_msgs::GPSRTK::ConstPtr &msg);
+
+    int FCU_STATE_exist(const mavros_msgs::State::ConstPtr &msg);
+
+    int FCU_IMU_exist(const sensor_msgs::Imu::ConstPtr &msg);
+
+    int FCU_ODOM_exist(const nav_msgs::Odometry::ConstPtr &msg);
+
+    int FCU_MAG_exist(const sensor_msgs::MagneticField::ConstPtr &msg);
+
+    int FCU_PRES_exist(const sensor_msgs::FluidPressure::ConstPtr &msg);
+
+    int FCU_BAT_exist(const sensor_msgs::BatteryState::ConstPtr &msg);
+
+    int FCU_GPS_exist(const mavros_msgs::GPSINPUT::ConstPtr &msg);
+
+    // Return status of a peripheral with it last and first Time
+    int timeStatus(const int _peripheral_index);
+
+    // ROS Message template: const Msg::Header::ConstPtr&
+    template <typename message>
+    int device_exist(message _msg, int _dev);
+};

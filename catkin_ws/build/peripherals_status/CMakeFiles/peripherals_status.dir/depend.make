@@ -14,6 +14,9 @@ CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/geometry_msgs/Twist.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/geometry_msgs/TwistWithCovariance.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/geometry_msgs/Vector3.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/mavros_msgs/GPSINPUT.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/mavros_msgs/GPSRTK.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/mavros_msgs/State.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/nav_msgs/Odometry.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/ros/advertise_options.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/ros/advertise_service_options.h
@@ -71,9 +74,14 @@ CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/ros/wall_timer.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/ros/wall_timer_options.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/rosconsole/macros_generated.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/BatteryState.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/CameraInfo.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/CompressedImage.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/FluidPressure.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/Image.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/Imu.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/MagneticField.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/Range.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/RegionOfInterest.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/sensor_msgs/image_encodings.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/std_msgs/Header.h

@@ -15,6 +15,9 @@ CMakeFiles/automatic.dir/src/automatic.cpp.o
  /opt/ros/noetic/include/geometry_msgs/Twist.h
  /opt/ros/noetic/include/geometry_msgs/TwistWithCovariance.h
  /opt/ros/noetic/include/geometry_msgs/Vector3.h
+ /opt/ros/noetic/include/mavros_msgs/GPSINPUT.h
+ /opt/ros/noetic/include/mavros_msgs/GPSRTK.h
+ /opt/ros/noetic/include/mavros_msgs/State.h
  /opt/ros/noetic/include/nav_msgs/Odometry.h
  /opt/ros/noetic/include/ros/advertise_options.h
  /opt/ros/noetic/include/ros/advertise_service_options.h
@@ -72,9 +75,14 @@ CMakeFiles/automatic.dir/src/automatic.cpp.o
  /opt/ros/noetic/include/ros/wall_timer.h
  /opt/ros/noetic/include/ros/wall_timer_options.h
  /opt/ros/noetic/include/rosconsole/macros_generated.h
+ /opt/ros/noetic/include/sensor_msgs/BatteryState.h
  /opt/ros/noetic/include/sensor_msgs/CameraInfo.h
  /opt/ros/noetic/include/sensor_msgs/CompressedImage.h
+ /opt/ros/noetic/include/sensor_msgs/FluidPressure.h
  /opt/ros/noetic/include/sensor_msgs/Image.h
+ /opt/ros/noetic/include/sensor_msgs/Imu.h
+ /opt/ros/noetic/include/sensor_msgs/MagneticField.h
+ /opt/ros/noetic/include/sensor_msgs/Range.h
  /opt/ros/noetic/include/sensor_msgs/RegionOfInterest.h
  /opt/ros/noetic/include/sensor_msgs/image_encodings.h
  /opt/ros/noetic/include/std_msgs/Header.h

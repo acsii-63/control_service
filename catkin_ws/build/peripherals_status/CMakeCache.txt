@@ -421,6 +421,9 @@ gennodejs_DIR:PATH=/opt/ros/noetic/share/gennodejs/cmake
 //The directory containing a CMake configuration file for genpy.
 genpy_DIR:PATH=/opt/ros/noetic/share/genpy/cmake
 
+//The directory containing a CMake configuration file for geographic_msgs.
+geographic_msgs_DIR:PATH=/opt/ros/noetic/share/geographic_msgs/cmake
+
 //The directory containing a CMake configuration file for geometry_msgs.
 geometry_msgs_DIR:PATH=/opt/ros/noetic/share/geometry_msgs/cmake
 
@@ -473,6 +476,9 @@ gtest_main_LIB_DEPENDS:STATIC=general;gtest;
 //Path to a library.
 lib:FILEPATH=/opt/ros/noetic/lib/libcv_bridge.so
 
+//The directory containing a CMake configuration file for mavros_msgs.
+mavros_msgs_DIR:PATH=/opt/ros/noetic/share/mavros_msgs/cmake
+
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/noetic/share/message_runtime/cmake
 
@@ -511,6 +517,9 @@ sensor_msgs_DIR:PATH=/opt/ros/noetic/share/sensor_msgs/cmake
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
+
+//The directory containing a CMake configuration file for uuid_msgs.
+uuid_msgs_DIR:PATH=/opt/ros/noetic/share/uuid_msgs/cmake
 
 //The directory containing a CMake configuration file for wfov_camera_msgs.
 wfov_camera_msgs_DIR:PATH=/home/pino/catkin_ws/devel/share/wfov_camera_msgs/cmake
