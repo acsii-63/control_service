@@ -7,7 +7,18 @@ int main(int argc, char **argv)
     ros::NodeHandle nh("");
     PeripheralsStatus *peripherals_status = new PeripheralsStatus(nh);
 
-    ros::spin();
+    std::vector<int> list{DEVICE::FLIR, DEVICE::D455, DEVICE::T265};
+    peripherals_status->addPeripherals(list);
+
+    while (ros::ok())
+    {
+        peripherals_status->debug();
+
+        peripherals_status->callBack_exist();
+
+        ros::spinOnce();
+        ros::Duration(0.1).sleep();
+    }
 
     return 0;
 }

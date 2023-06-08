@@ -1,0 +1,66 @@
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::D455_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:216:44:[m[K [01;31m[Kerror: [m[K‘[01m[Kimage[m[K’ was not declared in this scope; did you mean ‘[01m[Kcimagq[m[K’?
+  216 |     const sensor_msgs::Image &ros_image = *[01;31m[Kimage[m[K;
+      |                                            [01;31m[K^~~~~[m[K
+      |                                            [32m[Kcimagq[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::T265_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:222:60:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Kconst _pose_type[m[K’ {aka ‘[01m[Kconst geometry_msgs::PoseWithCovariance_<std::allocator<void> >[m[K’}
+  222 |     const geometry_msgs::Point::ConstPtr &point = msg->pose[01;31m[K->[m[Kpose->position;
+      |                                                            [01;31m[K^~[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:223:15:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst ConstPtr[m[K’ {aka ‘[01m[Kconst class boost::shared_ptr<const geometry_msgs::Point_<std::allocator<void> > >[m[K’} has no member named ‘[01m[Kx[m[K’; did you mean ‘[01m[Kboost::shared_ptr<const geometry_msgs::Point_<std::allocator<void> > >::element_type* boost::shared_ptr<const geometry_msgs::Point_<std::allocator<void> > >::px[m[K’? (not accessible from this context)
+  223 |     if (point.[01;31m[Kx[m[K != 0 && point.y != 0 && point.z != 0)
+      |               [01;31m[K^[m[K
+In file included from [01m[K/usr/include/boost/shared_ptr.hpp:17[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/forwards.h:37[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/common.h:37[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:43[m[K,
+                 from [01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/include/peripherals_status/peripherals_status.h:1[m[K,
+                 from [01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:1[m[K:
+[01m[K/usr/include/boost/smart_ptr/shared_ptr.hpp:818:20:[m[K [01;36m[Knote: [m[Kdeclared private here
+  818 |     element_type * [01;36m[Kpx[m[K;                 // contained pointer
+      |                    [01;36m[K^~[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:223:31:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst ConstPtr[m[K’ {aka ‘[01m[Kconst class boost::shared_ptr<const geometry_msgs::Point_<std::allocator<void> > >[m[K’} has no member named ‘[01m[Ky[m[K’
+  223 |     if (point.x != 0 && point.[01;31m[Ky[m[K != 0 && point.z != 0)
+      |                               [01;31m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:223:47:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst ConstPtr[m[K’ {aka ‘[01m[Kconst class boost::shared_ptr<const geometry_msgs::Point_<std::allocator<void> > >[m[K’} has no member named ‘[01m[Kz[m[K’
+  223 |     if (point.x != 0 && point.y != 0 && point.[01;31m[Kz[m[K != 0)
+      |                                               [01;31m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::TERABEE_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:230:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  230 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::RTK_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:234:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  234 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_STATE_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:238:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  238 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_IMU_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:242:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  242 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_ODOM_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:246:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  246 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_MAG_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:250:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  250 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_PRES_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:254:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  254 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_BAT_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:258:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  258 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_GPS_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:262:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  262 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+make[2]: *** [CMakeFiles/peripherals_status.dir/build.make:63: CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:576: CMakeFiles/peripherals_status.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

@@ -75,6 +75,8 @@ public:
     bool T265_image_exist = false;
 
     std::vector<int> current_status;
+    std::vector<bool> callBack_status;
+    std::vector<bool> used;
 
     std::string FLIR_image_path;
     std::string D455_image_path;
@@ -90,6 +92,13 @@ public:
 
     // Deconstructor:
     ~PeripheralsStatus();
+
+    // If the callBack function of a subscriber is not be executed, change the current_status of it to NOT_FOUND
+    void callBack_exist();
+
+    void addPeripherals(const std::vector<int> &_list);
+
+    /****************************/
 
     void FLIR_CallBack(const wfov_camera_msgs::WFOVImage::ConstPtr &msg);
 
@@ -117,29 +126,29 @@ public:
 
     /****************************/
 
-    int FLIR_exist(const wfov_camera_msgs::WFOVImage::ConstPtr &msg);
+    bool FLIR_exist(const wfov_camera_msgs::WFOVImage::ConstPtr &msg);
 
-    int D455_exist(const sensor_msgs::Image::ConstPtr &msg);
+    bool D455_exist(const sensor_msgs::Image::ConstPtr &msg);
 
-    int T265_exist(const nav_msgs::Odometry::ConstPtr &msg);
+    bool T265_exist(const nav_msgs::Odometry::ConstPtr &msg);
 
-    int TERABEE_exist(const sensor_msgs::Range::ConstPtr &msg);
+    bool TERABEE_exist(const sensor_msgs::Range::ConstPtr &msg);
 
-    int RTK_exist(const mavros_msgs::GPSRTK::ConstPtr &msg);
+    bool RTK_exist(const mavros_msgs::GPSRTK::ConstPtr &msg);
 
-    int FCU_STATE_exist(const mavros_msgs::State::ConstPtr &msg);
+    bool FCU_STATE_exist(const mavros_msgs::State::ConstPtr &msg);
 
-    int FCU_IMU_exist(const sensor_msgs::Imu::ConstPtr &msg);
+    bool FCU_IMU_exist(const sensor_msgs::Imu::ConstPtr &msg);
 
-    int FCU_ODOM_exist(const nav_msgs::Odometry::ConstPtr &msg);
+    bool FCU_ODOM_exist(const nav_msgs::Odometry::ConstPtr &msg);
 
-    int FCU_MAG_exist(const sensor_msgs::MagneticField::ConstPtr &msg);
+    bool FCU_MAG_exist(const sensor_msgs::MagneticField::ConstPtr &msg);
 
-    int FCU_PRES_exist(const sensor_msgs::FluidPressure::ConstPtr &msg);
+    bool FCU_PRES_exist(const sensor_msgs::FluidPressure::ConstPtr &msg);
 
-    int FCU_BAT_exist(const sensor_msgs::BatteryState::ConstPtr &msg);
+    bool FCU_BAT_exist(const sensor_msgs::BatteryState::ConstPtr &msg);
 
-    int FCU_GPS_exist(const mavros_msgs::GPSINPUT::ConstPtr &msg);
+    bool FCU_GPS_exist(const mavros_msgs::GPSINPUT::ConstPtr &msg);
 
     // Return status of a peripheral with it last and first Time
     int timeStatus(int _peripheral_index);
@@ -147,4 +156,7 @@ public:
     // ROS Message template: const Msg::Header::ConstPtr&
     template <typename message>
     int device_exist(message _msg, int _dev);
+
+    // Debug function.
+    void debug();
 };
