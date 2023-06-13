@@ -59,6 +59,12 @@ geometry_msgs/Pose.h
 -
 geometry_msgs/Point.h
 -
+geometry_msgs/Quaternion.h
+-
+geometry_msgs/Vector3.h
+-
+std_msgs/Header.h
+-
 opencv2/opencv.hpp
 -
 cv_bridge/cv_bridge.h

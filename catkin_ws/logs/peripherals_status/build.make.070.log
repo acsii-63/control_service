@@ -1,0 +1,6 @@
+[ 50%] Built target peripherals_status
+[35m[1mScanning dependencies of target automatic[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/automatic.dir/src/automatic.cpp.o[0m
+make[2]: *** [CMakeFiles/automatic.dir/build.make:63: CMakeFiles/automatic.dir/src/automatic.cpp.o] Killed
+make[1]: *** [CMakeFiles/Makefile2:198: CMakeFiles/automatic.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

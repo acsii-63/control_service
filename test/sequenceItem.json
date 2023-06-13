@@ -6,7 +6,7 @@
    			 "peripheral": [
    				 1,
    				 2,
-   				 3
+   				 4
    			 ],
    			 "controller": "CONTROLLER_PX4_VELO_FB"
    		 }

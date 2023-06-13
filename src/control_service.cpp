@@ -6,6 +6,9 @@
 
 MissionRequest mission;
 
+PAPI::communication::Server server(DEFAULT_PERIPHERALS_STATUS_CONTROL_PORT);
+PAPI::communication::Client client(LOCAL_HOST, DEFAULT_PERIPHERALS_STATUS_NODE_PORT);
+
 // Init the system, contain px4, mavros and geometric_controller
 bool initWorldAndVehicle()
 {
@@ -45,6 +48,31 @@ bool initWorldAndVehicle()
     return true;
 }
 
+bool preInit()
+{
+    std::string mavros_cmd = "roslaunch";
+    std::vector<std::string> mavros_argv;
+    mavros_argv.push_back("mavros");
+    mavros_argv.push_back("px4.launch");
+    mavros_argv.push_back("> /home/pino/logs/roslaunch_logs/mavros_log.log");
+
+    std::string controller_cmd = "roslaunch";
+    std::vector<std::string> controller_argv;
+    controller_argv.push_back("geometric_controller");
+    controller_argv.push_back("automatic.launch");
+    controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
+
+    PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
+    sleep(10); // Low-end System :)
+
+    PAPI::system::runCommand_system(controller_cmd, controller_argv);
+    sleep(5); // Low-end System :)
+
+    std::cout << "START CONNECTING." << std::endl;
+    int connection_result = (client.clientStart() == -1 || server.serverStart() == -1) ? -1 : 0;
+    return (connection_result == -1) ? false : true;
+}
+
 bool missionExecution()
 {
     if (!PAPI::system::jsonParsing("/home/pino/pino_ws/papi/sample/sample_takeoff_land.json", mission))
@@ -53,6 +81,17 @@ bool missionExecution()
     int index = 0;
     while (index < mission.number_sequence_items)
     {
+        if (index == 0)
+        {
+            std::vector<int> list;
+            mission.sequence_istructions[0]->Init_getPeripherals(list);
+            std::stringstream ss;
+            for (auto i = 0; i < list.size(); i++)
+                ss << list[i] << "|";
+            server.sendMsg(ss.str());
+            std::cout << ss.str() << std::endl;
+        }
+
         if (!PAPI::drone::makeInstruction(mission.sequence_istructions[index]))
         {
             std::cerr << "Fail to make instruction no." << index << ": " << mission.sequence_istructions[index]->name << std::endl;
@@ -64,16 +103,31 @@ bool missionExecution()
     return true;
 }
 
+void close()
+{
+    PAPI::system::closeLogsFile();
+
+    server.serverClose();
+    client.clientClose();
+}
+
 int main()
 {
     PAPI::system::createLogsFile("../logs");
 
-    if (!initWorldAndVehicle())
+    // if (!initWorldAndVehicle())
+    // {
+    //     std::cerr << "Initialization of the World, Vehicle, and Controller was unsuccessful." << std::endl;
+    //     return -1;
+    // }
+    // std::cout << "Initialization of the World, Vehicle, and Controller was successful." << std::endl;
+
+    if (!preInit())
     {
-        std::cerr << "Initialization of the World, Vehicle, and Controller was unsuccessful." << std::endl;
+        std::cerr << "Initialization was unsuccessful." << std::endl;
         return -1;
     }
-    std::cout << "Initialization of the World, Vehicle, and Controller was successful." << std::endl;
+    std::cout << "Initialization was successful." << std::endl;
 
     if (!missionExecution())
     {
@@ -82,7 +136,7 @@ int main()
     }
     std::cout << "The mission has been successfully completed." << std::endl;
 
-    PAPI::system::closeLogsFile();
+    close();
 
     return 0;
 }

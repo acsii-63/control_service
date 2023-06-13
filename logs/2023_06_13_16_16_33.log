@@ -1,0 +1,4 @@
+[16:16:33:243] roslaunch mavros px4.launch > /home/pino/logs/roslaunch_logs/mavros_log.log Command started in thread 140450816915200.
+[16:16:43:244] roslaunch geometric_controller automatic.launch > /home/pino/logs/roslaunch_logs/controller_log.log Command started in thread 140450808522496.
+[16:16:49:917] Waiting for client connection...
+[16:16:49:917] Connected to client.

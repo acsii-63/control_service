@@ -15,6 +15,10 @@
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
+#include <geometry_msgs/Quaternion.h>
+#include <geometry_msgs/Vector3.h>
+
+#include <std_msgs/Header.h>
 
 #include <opencv2/opencv.hpp>
 #include <cv_bridge/cv_bridge.h>
@@ -25,28 +29,18 @@
 
 #include "/home/pino/pino_ws/papi/PAPI.h"
 
+const float min_voltage = 0;
+const float max_voltage = 30;
+const float min_percentage = 0;
+const float max_percentage = 1;
+
+const float GPS_max_horiz_accuracy = 0.1;
+const float GPS_max_vert_accuracy = 0.1;
+const float GPS_max_HDOP = 1;
+const float GPS_max_VDOP = 1;
+
 const uint32_t uint32_zero = 0;
 ros::Time time_zero(uint32_zero, uint32_zero);
-
-enum DEVICE : int
-{
-    FLIR = 0,  // FLIR
-    D455,      // D455
-    T265,      // T265
-    LIDAR,     // LIDAR
-    TERABEE,   // Range Finder
-    RTK,       // RTK
-    FCU_STATE, // MAV State
-    FCU_IMU,   // MAV IMU
-    FCU_ODOM,  // MAV Odometry
-    FCU_MAG,   // MAV Magnetometer
-    FCU_PRES,  // MAV Absolute Pressure
-    FCU_BAT,   // MAV Battery
-    FCU_MOTOR, // MAV Motor outputs, control
-    FCU_AHRS,  // MAV Accelerometer
-    FCU_TELE,  // MAV Telemetry (P900?)
-    FCU_GPS    // MAV GPS
-};
 
 class PeripheralsStatus
 {
@@ -81,6 +75,8 @@ public:
     std::string FLIR_image_path;
     std::string D455_image_path;
     std::string T265_image_path;
+
+    std::string MAV_STATE = "";
 
     /****************************/
 
@@ -152,10 +148,6 @@ public:
 
     // Return status of a peripheral with it last and first Time
     int timeStatus(int _peripheral_index);
-
-    // ROS Message template: const Msg::Header::ConstPtr&
-    template <typename message>
-    int device_exist(message _msg, int _dev);
 
     // Debug function.
     void debug();

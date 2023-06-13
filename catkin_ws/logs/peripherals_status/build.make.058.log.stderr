@@ -1,0 +1,30 @@
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::RTK_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:372:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  372 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_IMU_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:389:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  389 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_ODOM_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:393:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  393 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_MAG_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:397:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  397 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_PRES_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:401:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  401 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_BAT_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:405:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  405 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::FCU_GPS_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:409:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  409 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+/usr/bin/ld: warning: libopencv_imgcodecs.so.4.2, needed by /opt/ros/noetic/lib/libcv_bridge.so, may conflict with libopencv_imgcodecs.so.407
+/usr/bin/ld: warning: libopencv_features2d.so.4.2, needed by /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0, may conflict with libopencv_features2d.so.407
