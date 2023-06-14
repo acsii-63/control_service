@@ -34,16 +34,36 @@ bool initWorldAndVehicle()
     controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
     // controller_argv.push_back("2>&1 &");
 
+    std::string realsense_cmd = "roslaunch";
+    std::vector<std::string> realsense_argv;
+    realsense_argv.push_back("realsense2_camera");
+    realsense_argv.push_back("rs_d400_and_t265.launch");
+    realsense_argv.push_back("> /home/pino/logs/roslaunch_logs/realsense_log.log");
+    // realsense_argv.push_back("2>&1 &");
+
+    std::string spinnaker_cmd = "roslaunch";
+    std::vector<std::string> spinnaker_argv;
+    spinnaker_argv.push_back("spinnaker_camera_driver");
+    spinnaker_argv.push_back("color_cam.launch");
+    spinnaker_argv.push_back("> /home/pino/logs/roslaunch_logs/spinnaker_log.log");
+    // spinnaker_argv.push_back("2>&1 &");
+
     /*************************************************/
 
     PAPI::system::runCommand_system(px4_cmd, px4_argv);
-    sleep(15); // Low-end System :)
+    sleep(15); // Wait for performance
 
     PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
-    sleep(20); // Low-end System :)
+    sleep(10); // Wait for perfomance
 
     PAPI::system::runCommand_system(controller_cmd, controller_argv);
-    sleep(5); // Low-end System :)
+    sleep(5); // Wait for performance
+
+    PAPI::system::runCommand_system(realsense_cmd, realsense_argv);
+    sleep(5); // Wait for performace
+
+    PAPI::system::runCommand_system(spinnaker_cmd, spinnaker_argv);
+    sleep(5); // Wait for performace
 
     return true;
 }
@@ -54,19 +74,42 @@ bool preInit()
     std::vector<std::string> mavros_argv;
     mavros_argv.push_back("mavros");
     mavros_argv.push_back("px4.launch");
+    mavros_argv.push_back("fcu_url:=\"udp://:14540@localhost:14557\"");
     mavros_argv.push_back("> /home/pino/logs/roslaunch_logs/mavros_log.log");
+    // mavros_argv.push_back("2>&1 &");
 
     std::string controller_cmd = "roslaunch";
     std::vector<std::string> controller_argv;
     controller_argv.push_back("geometric_controller");
     controller_argv.push_back("automatic.launch");
     controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
+    // controller_argv.push_back("2>&1 &");
+
+    std::string realsense_cmd = "roslaunch";
+    std::vector<std::string> realsense_argv;
+    realsense_argv.push_back("realsense2_camera");
+    realsense_argv.push_back("rs_d400_and_t265.launch");
+    realsense_argv.push_back("> /home/pino/logs/roslaunch_logs/realsense_log.log");
+    // realsense_argv.push_back("2>&1 &");
+
+    std::string spinnaker_cmd = "roslaunch";
+    std::vector<std::string> spinnaker_argv;
+    spinnaker_argv.push_back("spinnaker_camera_driver");
+    spinnaker_argv.push_back("color_cam.launch");
+    spinnaker_argv.push_back("> /home/pino/logs/roslaunch_logs/spinnaker_log.log");
+    // spinnaker_argv.push_back("2>&1 &");
 
     PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
-    sleep(10); // Low-end System :)
+    sleep(10); // Wait for perfomance
 
     PAPI::system::runCommand_system(controller_cmd, controller_argv);
-    sleep(5); // Low-end System :)
+    sleep(5); // Wait for performance
+
+    PAPI::system::runCommand_system(realsense_cmd, realsense_argv);
+    sleep(5); // Wait for performace
+
+    PAPI::system::runCommand_system(spinnaker_cmd, spinnaker_argv);
+    sleep(5); // Wait for performace
 
     std::cout << "START CONNECTING." << std::endl;
     int connection_result = (client.clientStart() == -1 || server.serverStart() == -1) ? -1 : 0;
