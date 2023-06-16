@@ -25,26 +25,21 @@ void addPeripherals()
     while (msg_str.empty())
         msg_str = client.reciveMessage();
 
-    for (int i = 0; i < msg_str.size(); i++)
+    std::stringstream ss(msg_str);
+    std::string number_str;
+    while (std::getline(ss, number_str, '|'))
     {
-        if (msg_str.substr(i, 1) == "|")
-            continue;
-
-        std::string temp_str = msg_str.substr(i, 1);
-        std::cout << temp_str << std::endl;
-        int temp_peri;
+        int num;
         try
         {
-            temp_peri = std::stoi(temp_str);
-            // Use the converted integer here
+            num = std::stoi(number_str);
         }
-        catch (const std::invalid_argument &e)
+        catch (const std::exception &e)
         {
-            // Handle the case when the conversion fails
-            // std::cout << "Invalid argument: " << e.what() << std::endl;
+            std::cerr << e.what() << '\n';
         }
 
-        switch (temp_peri)
+        switch (num)
         {
         case Peripheral::PERIPHERAL_CAM_DOWNWARD:
             list.push_back(DEVICE::FLIR);
@@ -72,6 +67,12 @@ void addPeripherals()
     }
 }
 
+void closeSocket()
+{
+    server.serverClose();
+    client.clientClose();
+}
+
 int main(int argc, char **argv)
 {
     if (connectToControlService() == -1)
@@ -94,9 +95,13 @@ int main(int argc, char **argv)
 
         peripherals_status->callBack_exist();
 
+        server.sendMsg(peripherals_status->getStatus_toString());
+        
         ros::spinOnce();
         ros::Duration(0.1).sleep();
     }
+
+    closeSocket();
 
     return 0;
 }

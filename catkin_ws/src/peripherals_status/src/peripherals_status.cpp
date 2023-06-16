@@ -437,7 +437,7 @@ bool PeripheralsStatus::FCU_GPS_exist(const mavros_msgs::GPSINPUT::ConstPtr &msg
 
 void PeripheralsStatus::callBack_exist()
 {
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i <= 15; i++)
     {
         if (!callBack_status[i] && used[i])
             current_status[i] = PERIPHERAL_STATUS::NOT_FOUND;
@@ -465,4 +465,12 @@ void PeripheralsStatus::debug()
     std::cout << std::endl;
 
     std::cout << "==========================" << std::endl;
+}
+
+std::string PeripheralsStatus::getStatus_toString()
+{
+    std::stringstream ss;
+    for (int i = 0; i <= 15; i++)
+        ss << current_status[i] << "|";
+    return ss.str();
 }

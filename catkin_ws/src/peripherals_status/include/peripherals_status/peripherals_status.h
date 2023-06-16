@@ -151,4 +151,7 @@ public:
 
     // Debug function.
     void debug();
+
+    // Get status in string format divided by '|' character
+    std::string getStatus_toString();
 };

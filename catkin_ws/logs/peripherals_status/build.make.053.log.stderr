@@ -1,2 +1,0 @@
-/usr/bin/ld: warning: libopencv_imgcodecs.so.4.2, needed by /opt/ros/noetic/lib/libcv_bridge.so, may conflict with libopencv_imgcodecs.so.407
-/usr/bin/ld: warning: libopencv_features2d.so.4.2, needed by /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0, may conflict with libopencv_features2d.so.407

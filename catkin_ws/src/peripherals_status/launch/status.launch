@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="peripherals_status" type="automatic" name="status" output="screen">
+    </node>
+</launch>

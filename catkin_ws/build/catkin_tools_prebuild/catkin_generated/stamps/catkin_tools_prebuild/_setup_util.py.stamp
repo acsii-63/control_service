@@ -268,7 +268,7 @@ if __name__ == '__main__':
 
         if not args.local:
             # environment at generation time
-            CMAKE_PREFIX_PATH = r'/home/pino/test_ws/catkin_ws/devel;/home/pino/pino_ws/sercure_service/catkin_ws/devel;/home/pino/catkin_ws/devel;/opt/ros/noetic'.split(';')
+            CMAKE_PREFIX_PATH = r'/home/pino/pino_ws/control_service/catkin_ws/devel;/home/pino/test_ws/catkin_ws/devel;/home/pino/pino_ws/sercure_service/catkin_ws/devel;/home/pino/catkin_ws/devel;/opt/ros/noetic'.split(';')
         else:
             # don't consider any other prefix path than this one
             CMAKE_PREFIX_PATH = []
