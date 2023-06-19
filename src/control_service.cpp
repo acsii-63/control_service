@@ -116,7 +116,7 @@ bool check()
     } while (first_msg.empty());
 
     // Set the timeout duration
-    auto wait_for_active_duration = std::chrono::seconds(DEFAULT_CONNECTION_TIMEOUT);
+    auto wait_for_active_duration = std::chrono::seconds(DEFAULT_TIME_WAIT_FOR_ACTIVE);
     std::chrono::seconds elapsed_duration;
     std::string last_msg = client_peripherals.reciveMessage();
 
@@ -131,10 +131,21 @@ bool check()
 
     std::vector<int> peripherals_status_vector = PAPI::system::getPeripheralsStatus_fromString_toVector(last_msg);
 
+    std::vector<int> peripherals_list;
+    mission.sequence_istructions[0]->Init_getPeripherals(peripherals_list);
+
+    auto it = std::find(peripherals_list.begin(), peripherals_list.end(), Peripheral::PERIPHERAL_CAM_DOWNWARD);
+    if (it != peripherals_list.end())
+        PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_DOWNWARD);
+
+    it = std::find(peripherals_list.begin(), peripherals_list.end(), Peripheral::PERIPHERAL_CAM_FORWARD);
+    if (it != peripherals_list.end())
+        PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_FORWARD);
+
     
     /*
-        1. Send image
-        2. Get response
+        1. Send image (done)
+        2. Get response (?)
         3. Check peripherals status
     */
 }
