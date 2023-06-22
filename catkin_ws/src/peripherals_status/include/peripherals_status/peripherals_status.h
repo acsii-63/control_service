@@ -152,6 +152,6 @@ public:
     // Debug function.
     void debug();
 
-    // Get status in string format divided by '|' character
+    // Get status in string format divided by '|' character with MAV_STATE at first, then a space
     std::string getStatus_toString();
 };

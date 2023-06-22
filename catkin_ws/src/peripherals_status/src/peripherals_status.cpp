@@ -442,6 +442,8 @@ void PeripheralsStatus::callBack_exist()
         if (!callBack_status[i] && used[i])
             current_status[i] = PERIPHERAL_STATUS::NOT_FOUND;
     }
+
+    std::cout << "debug\n";
 }
 
 void PeripheralsStatus::addPeripherals(const std::vector<int> &_list)
@@ -470,6 +472,7 @@ void PeripheralsStatus::debug()
 std::string PeripheralsStatus::getStatus_toString()
 {
     std::stringstream ss;
+    ss << MAV_STATE << " ";
     for (int i = 0; i <= 15; i++)
         ss << current_status[i] << "|";
     return ss.str();

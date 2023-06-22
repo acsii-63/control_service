@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 
     while (ros::ok())
     {
-        peripherals_status->debug();
+        // peripherals_status->debug();
 
         peripherals_status->callBack_exist();
 
