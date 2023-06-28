@@ -1,5 +1,5 @@
 /* Compile:
-    g++ control_service.cpp -o control_service -pthread -ljsoncpp
+    g++ control_service.cpp -o control_service -pthread -ljsoncpp -lyaml-cpp
  */
 #include "/home/pino/pino_ws/papi/PAPI.h"
 
