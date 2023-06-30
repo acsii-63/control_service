@@ -527,6 +527,9 @@ wfov_camera_msgs_DIR:PATH=/home/pino/catkin_ws/devel/share/wfov_camera_msgs/cmak
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/noetic/share/xmlrpcpp/cmake
 
+//The directory containing a CMake configuration file for yaml_cpp_catkin.
+yaml_cpp_catkin_DIR:PATH=/home/pino/catkin_ws/devel/share/yaml_cpp_catkin/cmake
+
 
 ########################
 # INTERNAL cache entries

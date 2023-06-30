@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   wfov_camera_msgs
   mavros_msgs
+  yaml_cpp_catkin
 )
 
 ## Add JSONCPP dependency
@@ -34,6 +35,14 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 # Add cv_bridge
 find_package(cv_bridge REQUIRED)
+
+
+# Add yaml-cpp
+include_directories(
+  ${YAML_CPP_INCLUDE_DIRS}
+)
+link_directories(${YAML_CPP_LIBRARY_DIRS})
+
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -164,6 +173,7 @@ target_link_libraries(automatic
   ${JSONCPP_LIBRARIES}
   ${OpenCV_LIBRARIES}
   ${cv_bridge_LIBRARIES}
+  ${YAML_CPP_LIBRARIES}
   Threads::Threads
 )
 

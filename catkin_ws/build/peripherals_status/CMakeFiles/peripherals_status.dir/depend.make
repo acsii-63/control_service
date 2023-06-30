@@ -5,6 +5,7 @@ CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /home/pino/catki
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/include/peripherals_status/peripherals_status.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /home/pino/pino_ws/papi/PAPI.h
+CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /home/pino/pino_ws/papi/include/UTM.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /home/pino/pino_ws/papi/include/mission_v1.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/cv_bridge/cv_bridge.h
 CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h

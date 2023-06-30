@@ -443,7 +443,7 @@ void PeripheralsStatus::callBack_exist()
             current_status[i] = PERIPHERAL_STATUS::NOT_FOUND;
     }
 
-    std::cout << "debug\n";
+    // std::cout << "debug\n";
 }
 
 void PeripheralsStatus::addPeripherals(const std::vector<int> &_list)

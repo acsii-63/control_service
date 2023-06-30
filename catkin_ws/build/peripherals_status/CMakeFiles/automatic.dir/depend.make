@@ -5,6 +5,7 @@ CMakeFiles/automatic.dir/src/automatic.cpp.o: /home/pino/catkin_ws/devel/.privat
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/include/peripherals_status/peripherals_status.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/automatic.cpp
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /home/pino/pino_ws/papi/PAPI.h
+CMakeFiles/automatic.dir/src/automatic.cpp.o: /home/pino/pino_ws/papi/include/UTM.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /home/pino/pino_ws/papi/include/mission_v1.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/cv_bridge/cv_bridge.h
 CMakeFiles/automatic.dir/src/automatic.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h

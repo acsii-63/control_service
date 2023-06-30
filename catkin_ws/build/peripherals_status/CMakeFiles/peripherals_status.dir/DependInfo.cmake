@@ -22,6 +22,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/local/include/opencv4"
   "/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/include"
   "/home/pino/catkin_ws/devel/.private/wfov_camera_msgs/include"
+  "/home/pino/catkin_ws/devel/.private/yaml_cpp_catkin/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   )

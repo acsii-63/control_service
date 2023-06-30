@@ -8,6 +8,35 @@ MissionRequest mission;
 PAPI::communication::Server server_peripherals(DEFAULT_PERIPHERALS_STATUS_CONTROL_PORT);
 PAPI::communication::Client client_peripherals(LOCAL_HOST, DEFAULT_PERIPHERALS_STATUS_NODE_PORT);
 
+void driver_loader()
+{
+    std::string cmd;               // command
+    std::vector<std::string> argv; // arguments vector
+    // Spinnaker (FLIR)
+    cmd = "roslaunch";
+    argv.push_back("spinnaker_camera_driver");
+    argv.push_back("color_cam.launch");
+    argv.push_back(">> /home/pino/logs/roslaunch_logs/spinnaker.log");
+    argv.push_back("2>&1");
+
+    PAPI::system::runCommand_system(cmd, argv);
+    sleep(1);
+    cmd.clear();
+    argv.clear();
+
+    // Realsense2 (D455 and T265)
+    cmd = "roslaunch";
+    argv.push_back("realsense2_camera");
+    argv.push_back("rs_d400_and_t265.launch");
+    argv.push_back(">> /home/pino/logs/roslaunch_logs/realsense.log");
+    argv.push_back("2>&1");
+
+    PAPI::system::runCommand_system(cmd, argv);
+    sleep(1);
+    cmd.clear();
+    argv.clear();
+}
+
 // [DEMO] Init the system, contain PX4, MAVROS and GEOMETRIC_CONTROLLER.
 bool demo()
 {
@@ -51,6 +80,9 @@ bool demo()
 
     PAPI::system::runCommand_system(controller_cmd, controller_argv);
     sleep(5); // Wait for performance
+
+    // driver_loader();
+    // sleep(5); // Wait for performance
 
     PAPI::system::runCommand_system(peripherals_status_cmd, peripherals_status_argv);
     sleep(1); // Wait for performace
@@ -144,11 +176,14 @@ bool initCheck()
 
     std::cout << "PASS #1.\n"; /************************************/
 
+    int num_of_images = 0;
+
     auto it = std::find(peripherals_list.begin(), peripherals_list.end(), Peripheral::PERIPHERAL_CAM_DOWNWARD);
     if (it != peripherals_list.end() && peripherals_status_vector[DEVICE::FLIR] == PERIPHERAL_STATUS::ACTIVE)
     {
-        PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_DOWNWARD);
+        PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_DOWNWARD, mission.id);
         PAPI::communication::sendMessage_echo_netcat("[ INFO] FLIR image sended.", DEFAULT_COMM_MSG_PORT);
+        ++num_of_images;
     }
     else
         PAPI::communication::sendMessage_echo_netcat("[ERROR] FLIR camera is not activated and will not send the image to GCS.", DEFAULT_COMM_MSG_PORT);
@@ -157,8 +192,9 @@ bool initCheck()
     it = std::find(peripherals_list.begin(), peripherals_list.end(), Peripheral::PERIPHERAL_CAM_FORWARD);
     if (it != peripherals_list.end() && peripherals_status_vector[DEVICE::D455] == PERIPHERAL_STATUS::ACTIVE)
     {
-        PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_FORWARD);
+        PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_FORWARD, mission.id);
         PAPI::communication::sendMessage_echo_netcat("[ INFO] D455 image sended.", DEFAULT_COMM_MSG_PORT);
+        ++num_of_images;
     }
     else
         PAPI::communication::sendMessage_echo_netcat("[ERROR] D455 camera is not activated and will not send the image to GCS.", DEFAULT_COMM_MSG_PORT);
@@ -174,37 +210,70 @@ bool initCheck()
     auto sendTime = std::chrono::high_resolution_clock::now();                                 // Time after send image(s)
     PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for confirm from GCS.", DEFAULT_COMM_MSG_PORT);
     PAPI::system::sleepLessThanASecond(0.1);
+
+    // do
+    // { // Check if the timeout has occurred
+    //     auto currentTime = std::chrono::high_resolution_clock::now();
+    //     elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - sendTime);
+    //     confirm_msg = PAPI::system::readLastLineFromFile(DEFAULT_MESSAGE_FILE_PATH);
+
+    // } while (elapsed_duration < wait_for_image_confirm_timeout && confirm_msg.empty());
+
     do
     { // Check if the timeout has occurred
         auto currentTime = std::chrono::high_resolution_clock::now();
         elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - sendTime);
-        confirm_msg = PAPI::system::readLastLineFromFile(DEFAULT_MESSAGE_FILE_PATH);
-
-    } while (elapsed_duration < wait_for_image_confirm_timeout && confirm_msg.empty());
+    } while (elapsed_duration < wait_for_image_confirm_timeout && !PAPI::system::FLAG_isEnough(num_of_images, DEFAULT_MESSAGE_FILE_PATH));
 
     std::cout << "PASS #3.\n"; /************************************/
 
-    if (confirm_msg.empty())
+    // if (confirm_msg.empty())
+    // {
+    //     PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Wait for image check TIMEOUT.", DEFAULT_COMM_MSG_PORT);
+    //     PAPI::system::sleepLessThanASecond(0.1);
+    //     return false;
+    // }
+    // else
+    // {
+    //     PAPI::communication::sendMessage_echo_netcat("[ INFO] Got confirm from GCS.", DEFAULT_COMM_MSG_PORT);
+    //     PAPI::system::sleepLessThanASecond(0.1);
+    // }
+
+    std::vector<std::string> flags;
+    if (!PAPI::system::FLAG_isEnough(num_of_images, DEFAULT_MESSAGE_FILE_PATH))
     {
-        PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Wait for image check TIMEOUT.", DEFAULT_COMM_MSG_PORT);
+        PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Missing FLAG(s) after TIMEOUT duration.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
         return false;
     }
     else
     {
-        PAPI::communication::sendMessage_echo_netcat("[ INFO] Got confirm from GCS.", DEFAULT_COMM_MSG_PORT);
+        PAPI::communication::sendMessage_echo_netcat("[ INFO] Got enough confirmation from GCS.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
+        flags = PAPI::system::readAllFLAGsFromFile(DEFAULT_MESSAGE_FILE_PATH);
     }
 
-    if (!PAPI::system::checkFLAG(confirm_msg))
+    // if (!PAPI::system::checkFLAG(confirm_msg))
+    // {
+    //     PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Reject from GCS.", DEFAULT_COMM_MSG_PORT);
+    //     PAPI::system::sleepLessThanASecond(0.1);
+    //     return false;
+    // }
+    // else
+    // {
+    //     PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS.", DEFAULT_COMM_MSG_PORT);
+    //     PAPI::system::sleepLessThanASecond(0.1);
+    // }
+
+    if (!PAPI::system::checkAllFLAG(flags))
     {
         PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Reject from GCS.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
         return false;
     }
-    else
+    else if (num_of_images > 0)
     {
-        PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS.", DEFAULT_COMM_MSG_PORT);
+        PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS (Peripherals).", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
     }
 
@@ -226,7 +295,12 @@ bool initCheck()
 // The main control is running in here, contain json parsing, handle problem, make mission, comm with others...
 bool missionExecution()
 {
-    if (!PAPI::system::jsonParsing(DEFAULT_JSON_FILE_PATH, mission))
+    // if (!PAPI::system::jsonParsing(DEFAULT_JSON_FILE_PATH, mission))
+    std::string mission_path = DEFAULT_MISSION_DIR_PATH;
+    mission_path = mission_path + PAPI::system::getMissionFile(DEFAULT_MISSION_DIR_PATH);
+    mission_path.pop_back();
+    std::cout << mission_path << std::endl;
+    if (!PAPI::system::jsonParsing(mission_path, mission))
         return false;
 
     int index = 0;
@@ -283,7 +357,7 @@ int main()
 {
     PAPI::system::createLogsFile(DEFAULT_LOG_DIR);
 
-    if (!preInit())
+    if (!demo())
     {
         // std::cerr << "MAVROS and GEOMETRIC_CONTROLLER initialization was unsuccessful." << std::endl;
         PAPI::communication::sendMessage_echo_netcat("[ERROR] MAVROS and GEOMETRIC_CONTROLLER initialization was unsuccessful.", DEFAULT_COMM_MSG_PORT);

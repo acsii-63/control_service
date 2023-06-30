@@ -11,4 +11,103 @@
 [100%] [32m[1mLinking CXX executable /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic[0m
 /usr/bin/ld: warning: libopencv_imgcodecs.so.4.2, needed by /opt/ros/noetic/lib/libcv_bridge.so, may conflict with libopencv_imgcodecs.so.407
 /usr/bin/ld: warning: libopencv_features2d.so.4.2, needed by /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0, may conflict with libopencv_features2d.so.407
-[100%] Built target automatic
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `PAPI::drone::GPSToLocalPoint()':
+automatic.cpp:(.text+0x6423): undefined reference to `YAML::Load(std::istream&)'
+/usr/bin/ld: automatic.cpp:(.text+0x6e7d): undefined reference to `YAML::Emitter::Emitter()'
+/usr/bin/ld: automatic.cpp:(.text+0x7164): undefined reference to `YAML::Emitter::c_str() const'
+/usr/bin/ld: automatic.cpp:(.text+0x7197): undefined reference to `YAML::Emitter::~Emitter()'
+/usr/bin/ld: automatic.cpp:(.text+0x79cc): undefined reference to `YAML::Emitter::~Emitter()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::operator<<(YAML::ostream_wrapper&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+automatic.cpp:(.text._ZN4YAMLlsERNS_15ostream_wrapperERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAMLlsERNS_15ostream_wrapperERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x23): undefined reference to `YAML::ostream_wrapper::write(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `void YAML::Emitter::SetStreamablePrecision<double>(std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char> >&)':
+automatic.cpp:(.text._ZN4YAML7Emitter22SetStreamablePrecisionIdEEvRNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE[_ZN4YAML7Emitter22SetStreamablePrecisionIdEEvRNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE]+0x36): undefined reference to `YAML::Emitter::GetDoublePrecision() const'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::operator<<(YAML::Emitter&, char const*)':
+automatic.cpp:(.text._ZN4YAMLlsERNS_7EmitterEPKc[_ZN4YAMLlsERNS_7EmitterEPKc]+0x56): undefined reference to `YAML::Emitter::Write(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::operator<<(YAML::Emitter&, YAML::EMITTER_MANIP)':
+automatic.cpp:(.text._ZN4YAMLlsERNS_7EmitterENS_13EMITTER_MANIPE[_ZN4YAMLlsERNS_7EmitterENS_13EMITTER_MANIPE]+0x20): undefined reference to `YAML::Emitter::SetLocalValue(YAML::EMITTER_MANIP)'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Exception::Exception(YAML::Mark const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+automatic.cpp:(.text._ZN4YAML9ExceptionC2ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAML9ExceptionC5ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x61): undefined reference to `vtable for YAML::Exception'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::RepresentationException::RepresentationException(YAML::Mark const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+automatic.cpp:(.text._ZN4YAML23RepresentationExceptionC2ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAML23RepresentationExceptionC5ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x32): undefined reference to `vtable for YAML::RepresentationException'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::InvalidNode::InvalidNode()':
+automatic.cpp:(.text._ZN4YAML11InvalidNodeC2Ev[_ZN4YAML11InvalidNodeC5Ev]+0x89): undefined reference to `vtable for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::BadConversion::BadConversion(YAML::Mark const&)':
+automatic.cpp:(.text._ZN4YAML13BadConversionC2ERKNS_4MarkE[_ZN4YAML13BadConversionC5ERKNS_4MarkE]+0x79): undefined reference to `vtable for YAML::BadConversion'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::BadSubscript::BadSubscript()':
+automatic.cpp:(.text._ZN4YAML12BadSubscriptC2Ev[_ZN4YAML12BadSubscriptC5Ev]+0x89): undefined reference to `vtable for YAML::BadSubscript'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::memory_holder::create_node()':
+automatic.cpp:(.text._ZN4YAML6detail13memory_holder11create_nodeEv[_ZN4YAML6detail13memory_holder11create_nodeEv]+0x20): undefined reference to `YAML::detail::memory::create_node()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::node_ref::mark_defined()':
+automatic.cpp:(.text._ZN4YAML6detail8node_ref12mark_definedEv[_ZN4YAML6detail8node_ref12mark_definedEv]+0x20): undefined reference to `YAML::detail::node_data::mark_defined()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::node_ref::set_null()':
+automatic.cpp:(.text._ZN4YAML6detail8node_ref8set_nullEv[_ZN4YAML6detail8node_ref8set_nullEv]+0x20): undefined reference to `YAML::detail::node_data::set_null()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::node_ref::set_scalar(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+automatic.cpp:(.text._ZN4YAML6detail8node_ref10set_scalarERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAML6detail8node_ref10set_scalarERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x2e): undefined reference to `YAML::detail::node_data::set_scalar(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::node_ref::begin()':
+automatic.cpp:(.text._ZN4YAML6detail8node_ref5beginEv[_ZN4YAML6detail8node_ref5beginEv]+0x3d): undefined reference to `YAML::detail::node_data::begin()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::node_ref::end()':
+automatic.cpp:(.text._ZN4YAML6detail8node_ref3endEv[_ZN4YAML6detail8node_ref3endEv]+0x3d): undefined reference to `YAML::detail::node_data::end()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node::EnsureNodeExists() const':
+automatic.cpp:(.text._ZNK4YAML4Node16EnsureNodeExistsEv[_ZNK4YAML4Node16EnsureNodeExistsEv]+0x39): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZNK4YAML4Node16EnsureNodeExistsEv[_ZNK4YAML4Node16EnsureNodeExistsEv]+0x43): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node::Mark() const':
+automatic.cpp:(.text._ZNK4YAML4Node4MarkEv[_ZNK4YAML4Node4MarkEv]+0x39): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZNK4YAML4Node4MarkEv[_ZNK4YAML4Node4MarkEv]+0x43): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node::Type() const':
+automatic.cpp:(.text._ZNK4YAML4Node4TypeEv[_ZNK4YAML4Node4TypeEv]+0x39): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZNK4YAML4Node4TypeEv[_ZNK4YAML4Node4TypeEv]+0x43): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node::Scalar[abi:cxx11]() const':
+automatic.cpp:(.text._ZNK4YAML4Node6ScalarB5cxx11Ev[_ZNK4YAML4Node6ScalarB5cxx11Ev]+0x39): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZNK4YAML4Node6ScalarB5cxx11Ev[_ZNK4YAML4Node6ScalarB5cxx11Ev]+0x43): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: automatic.cpp:(.text._ZNK4YAML4Node6ScalarB5cxx11Ev[_ZNK4YAML4Node6ScalarB5cxx11Ev]+0x71): undefined reference to `YAML::detail::node_data::empty_scalar[abi:cxx11]'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `void YAML::Node::Assign<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+automatic.cpp:(.text._ZN4YAML4Node6AssignINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEEvRKT_[_ZN4YAML4Node6AssignINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEEvRKT_]+0x3d): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML4Node6AssignINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEEvRKT_[_ZN4YAML4Node6AssignINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEEvRKT_]+0x47): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Emitter& YAML::Emitter::WriteIntegralType<int>(int)':
+automatic.cpp:(.text._ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_[_ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_]+0x37): undefined reference to `YAML::Emitter::good() const'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_[_ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_]+0x5e): undefined reference to `YAML::Emitter::PrepareNode(YAML::EmitterNodeType::value)'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_[_ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_]+0x86): undefined reference to `YAML::Emitter::PrepareIntegralStream(std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char> >&) const'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_[_ZN4YAML7Emitter17WriteIntegralTypeIiEERS0_T_]+0xf5): undefined reference to `YAML::Emitter::StartedScalar()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Emitter& YAML::Emitter::WriteStreamable<double>(double)':
+automatic.cpp:(.text._ZN4YAML7Emitter15WriteStreamableIdEERS0_T_[_ZN4YAML7Emitter15WriteStreamableIdEERS0_T_]+0x39): undefined reference to `YAML::Emitter::good() const'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML7Emitter15WriteStreamableIdEERS0_T_[_ZN4YAML7Emitter15WriteStreamableIdEERS0_T_]+0x60): undefined reference to `YAML::Emitter::PrepareNode(YAML::EmitterNodeType::value)'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML7Emitter15WriteStreamableIdEERS0_T_[_ZN4YAML7Emitter15WriteStreamableIdEERS0_T_]+0xfb): undefined reference to `YAML::Emitter::StartedScalar()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node YAML::Node::operator[]<char [2]>(char const (&) [2])':
+automatic.cpp:(.text._ZN4YAML4NodeixIA2_cEES0_RKT_[_ZN4YAML4NodeixIA2_cEES0_RKT_]+0x50): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML4NodeixIA2_cEES0_RKT_[_ZN4YAML4NodeixIA2_cEES0_RKT_]+0x5a): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `double YAML::Node::as<double>() const':
+automatic.cpp:(.text._ZNK4YAML4Node2asIdEET_v[_ZNK4YAML4Node2asIdEET_v]+0x48): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZNK4YAML4Node2asIdEET_v[_ZNK4YAML4Node2asIdEET_v]+0x52): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node YAML::Node::operator[]<char [5]>(char const (&) [5])':
+automatic.cpp:(.text._ZN4YAML4NodeixIA5_cEES0_RKT_[_ZN4YAML4NodeixIA5_cEES0_RKT_]+0x50): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML4NodeixIA5_cEES0_RKT_[_ZN4YAML4NodeixIA5_cEES0_RKT_]+0x5a): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node YAML::Node::operator[]<char [4]>(char const (&) [4])':
+automatic.cpp:(.text._ZN4YAML4NodeixIA4_cEES0_RKT_[_ZN4YAML4NodeixIA4_cEES0_RKT_]+0x50): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML4NodeixIA4_cEES0_RKT_[_ZN4YAML4NodeixIA4_cEES0_RKT_]+0x5a): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `int YAML::Node::as<int>() const':
+automatic.cpp:(.text._ZNK4YAML4Node2asIiEET_v[_ZNK4YAML4Node2asIiEET_v]+0x48): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZNK4YAML4Node2asIiEET_v[_ZNK4YAML4Node2asIiEET_v]+0x52): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node YAML::Node::operator[]<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+automatic.cpp:(.text._ZN4YAML4NodeixINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEES0_RKT_[_ZN4YAML4NodeixINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEES0_RKT_]+0x50): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML4NodeixINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEES0_RKT_[_ZN4YAML4NodeixINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEES0_RKT_]+0x5a): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::Node YAML::Node::operator[]<char [8]>(char const (&) [8])':
+automatic.cpp:(.text._ZN4YAML4NodeixIA8_cEES0_RKT_[_ZN4YAML4NodeixIA8_cEES0_RKT_]+0x50): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML4NodeixIA8_cEES0_RKT_[_ZN4YAML4NodeixIA8_cEES0_RKT_]+0x5a): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::TypedBadConversion<double>::~TypedBadConversion()':
+automatic.cpp:(.text._ZN4YAML18TypedBadConversionIdED2Ev[_ZN4YAML18TypedBadConversionIdED5Ev]+0x26): undefined reference to `YAML::BadConversion::~BadConversion()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::TypedBadConversion<int>::~TypedBadConversion()':
+automatic.cpp:(.text._ZN4YAML18TypedBadConversionIiED2Ev[_ZN4YAML18TypedBadConversionIiED5Ev]+0x26): undefined reference to `YAML::BadConversion::~BadConversion()'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::node& YAML::detail::node_data::get<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::shared_ptr<YAML::detail::memory_holder>)':
+automatic.cpp:(.text._ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0xe8): undefined reference to `YAML::detail::node_data::convert_to_map(std::shared_ptr<YAML::detail::memory_holder>)'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x112): undefined reference to `YAML::BadSubscript::~BadSubscript()'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x11c): undefined reference to `typeinfo for YAML::BadSubscript'
+/usr/bin/ld: automatic.cpp:(.text._ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x246): undefined reference to `YAML::detail::node_data::insert_map_pair(YAML::detail::node&, YAML::detail::node&)'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o: in function `YAML::detail::node& YAML::detail::node_data::convert_to_node<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::shared_ptr<YAML::detail::memory_holder>)':
+automatic.cpp:(.text._ZN4YAML6detail9node_data15convert_to_nodeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data15convert_to_nodeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x69): undefined reference to `YAML::detail::memory_holder::merge(YAML::detail::memory_holder&)'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o:(.data.rel.ro._ZTIN4YAML18TypedBadConversionIiEE[_ZTIN4YAML18TypedBadConversionIiEE]+0x10): undefined reference to `typeinfo for YAML::BadConversion'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o:(.data.rel.ro._ZTIN4YAML18TypedBadConversionIdEE[_ZTIN4YAML18TypedBadConversionIdEE]+0x10): undefined reference to `typeinfo for YAML::BadConversion'
+/usr/bin/ld: CMakeFiles/automatic.dir/src/automatic.cpp.o:(.data.rel.local.DW.ref._ZTIN4YAML9ExceptionE[DW.ref._ZTIN4YAML9ExceptionE]+0x0): undefined reference to `typeinfo for YAML::Exception'
+collect2: error: ld returned 1 exit status
+make[2]: *** [CMakeFiles/automatic.dir/build.make:228: /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic] Error 1
+make[1]: *** [CMakeFiles/Makefile2:198: CMakeFiles/automatic.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

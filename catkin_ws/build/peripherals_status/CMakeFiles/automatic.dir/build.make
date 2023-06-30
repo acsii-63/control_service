@@ -97,6 +97,7 @@ automatic_EXTERNAL_OBJECTS =
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /home/pino/catkin_ws/devel/.private/yaml_cpp_catkin/lib/libyaml-cpp0.5.so
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/local/lib/libopencv_gapi.so.4.7.0
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/local/lib/libopencv_highgui.so.4.7.0
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/local/lib/libopencv_ml.so.4.7.0
@@ -167,6 +168,7 @@ automatic_EXTERNAL_OBJECTS =
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /opt/ros/noetic/lib/libxmlrpcpp.so
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /home/pino/catkin_ws/devel/.private/yaml_cpp_catkin/lib/libyaml-cpp0.5.so
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /opt/ros/noetic/lib/libcv_bridge.so
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic: /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.2.0
