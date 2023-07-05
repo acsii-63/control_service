@@ -17,7 +17,7 @@ void driver_loader()
     argv.push_back("spinnaker_camera_driver");
     argv.push_back("color_cam.launch");
     argv.push_back(">> /home/pino/logs/roslaunch_logs/spinnaker.log");
-    argv.push_back("2>&1");
+    argv.push_back("2>&1 &");
 
     PAPI::system::runCommand_system(cmd, argv);
     sleep(1);
@@ -29,7 +29,7 @@ void driver_loader()
     argv.push_back("realsense2_camera");
     argv.push_back("rs_d400_and_t265.launch");
     argv.push_back(">> /home/pino/logs/roslaunch_logs/realsense.log");
-    argv.push_back("2>&1");
+    argv.push_back("2>&1 &");
 
     PAPI::system::runCommand_system(cmd, argv);
     sleep(1);
@@ -72,6 +72,9 @@ bool demo()
 
     /*************************************************/
 
+    driver_loader();
+    sleep(5); // Wait for performance
+
     PAPI::system::runCommand_system(px4_cmd, px4_argv);
     sleep(5); // Wait for performance
 
@@ -81,17 +84,18 @@ bool demo()
     PAPI::system::runCommand_system(controller_cmd, controller_argv);
     sleep(5); // Wait for performance
 
-    // driver_loader();
-    // sleep(5); // Wait for performance
-
     PAPI::system::runCommand_system(peripherals_status_cmd, peripherals_status_argv);
     sleep(1); // Wait for performace
 
     /*************************************************/
 
     std::cout << "START CONNECTING." << std::endl;
-    int connection_result = (client_peripherals.clientStart() == -1 || server_peripherals.serverStart() == -1) ? -1 : 0;
-    return (connection_result == -1) ? false : true;
+    // int connection_result = (client_peripherals.clientStart() == -1 || server_peripherals.serverStart() == -1) ? -1 : 0;
+    int client_connection_result = client_peripherals.clientStart();
+    int server_connection_result = server_peripherals.serverStart();
+    if (client_connection_result == -1 || server_connection_result == -1)
+        return false;
+    return true;
 }
 
 // Init the system, contain MAVROS and GEOMETRIC_CONTROLLER.
@@ -206,7 +210,7 @@ bool initCheck()
     std::cout << "PASS #2.\n"; /************************************/
 
     std::string confirm_msg = "";                                                              // Confirm message
-    auto wait_for_image_confirm_timeout = std::chrono::seconds(DEFALUT_IMAGE_CONFIRM_TIMEOUT); // Set the timeout duration
+    auto wait_for_image_confirm_timeout = std::chrono::seconds(DEFAULT_IMAGE_CONFIRM_TIMEOUT); // Set the timeout duration
     auto sendTime = std::chrono::high_resolution_clock::now();                                 // Time after send image(s)
     PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for confirm from GCS.", DEFAULT_COMM_MSG_PORT);
     PAPI::system::sleepLessThanASecond(0.1);
@@ -287,6 +291,33 @@ bool initCheck()
     {
         PAPI::communication::sendMessage_echo_netcat("[ INFO] Peripherals check passed. Everything is working.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
+    }
+
+    std::cout << "PASS #4.\n"; /************************************/
+
+    PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for permission to fly. Timeout: 120 seconds.", DEFAULT_COMM_MSG_PORT);
+    PAPI::system::sleepLessThanASecond(0.1);
+    std::string permission;
+
+    if (!PAPI::system::getNewestFLAG(DEFAULT_MESSAGE_FILE_PATH, permission, DEFAULT_GCS_CONFIRM_TIMEOUT))
+    {
+        PAPI::communication::sendMessage_echo_netcat("[ERROR] UAV will not be airborne or engaged in flight activities.", DEFAULT_COMM_MSG_PORT);
+        PAPI::system::sleepLessThanASecond(0.1);
+        return false;
+    }
+    else
+    {
+        if (permission == FLAG_DENY_TO_FLY)
+        {
+            PAPI::communication::sendMessage_echo_netcat("[ERROR] UAV will not be airborne or engaged in flight activities: GCS denied.", DEFAULT_COMM_MSG_PORT);
+            PAPI::system::sleepLessThanASecond(0.1);
+            return false;
+        }
+        else
+        {
+            PAPI::communication::sendMessage_echo_netcat("[ INFO] UAV is going to execute the flight mission: GCS allowed.", DEFAULT_COMM_MSG_PORT);
+            PAPI::system::sleepLessThanASecond(0.1);
+        }
     }
 
     return true;

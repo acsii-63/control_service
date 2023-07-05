@@ -8,7 +8,13 @@ std::vector<int> list;
 
 int connectToControlService()
 {
-    return (server.serverStart() == -1 || client.clientStart() == -1) ? -1 : 0;
+    int serverResult = server.serverStart();
+    int clientResult = client.clientStart();
+    
+    if (serverResult == -1 || clientResult == -1)
+        return -1;
+    
+    return 0;
 }
 
 void addPeripherals()
