@@ -333,6 +333,7 @@ bool missionExecution()
     std::cout << mission_path << std::endl;
     if (!PAPI::system::jsonParsing(mission_path, mission))
         return false;
+    PAPI::mission_id = mission.id;
 
     int index = 0;
     while (index < mission.number_sequence_items)
