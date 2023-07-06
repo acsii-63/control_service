@@ -1,0 +1,13 @@
+[35m[1mScanning dependencies of target control_pkg[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o[0m
+[ 50%] [32m[1mLinking CXX shared library /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so[0m
+[ 50%] Built target control_pkg
+[35m[1mScanning dependencies of target route[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/route.dir/src/route.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route[0m
+/usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+(.text+0x24): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+make[2]: *** [CMakeFiles/route.dir/build.make:230: /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route] Error 1
+make[1]: *** [CMakeFiles/Makefile2:167: CMakeFiles/route.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

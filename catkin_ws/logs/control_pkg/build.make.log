@@ -1,0 +1,8 @@
+[35m[1mScanning dependencies of target control_pkg[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o[0m
+[ 50%] [32m[1mLinking CXX shared library /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so[0m
+[ 50%] Built target control_pkg
+[35m[1mScanning dependencies of target route[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/route.dir/src/route.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route[0m
+[100%] Built target route

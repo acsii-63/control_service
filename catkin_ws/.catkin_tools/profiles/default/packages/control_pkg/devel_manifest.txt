@@ -1,0 +1,7 @@
+control_pkg
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/cmake.lock /home/pino/pino_ws/control_service/catkin_ws/devel/./cmake.lock
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/share/control_pkg/cmake/control_pkgConfig.cmake /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig.cmake
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/share/control_pkg/cmake/control_pkgConfig-version.cmake /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig-version.cmake
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so /home/pino/pino_ws/control_service/catkin_ws/devel/lib/libcontrol_pkg.so
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/pkgconfig/control_pkg.pc /home/pino/pino_ws/control_service/catkin_ws/devel/lib/pkgconfig/control_pkg.pc
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/route

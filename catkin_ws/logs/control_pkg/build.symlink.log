@@ -1,0 +1,5 @@
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig.cmake
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig-version.cmake
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/libcontrol_pkg.so
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/pkgconfig/control_pkg.pc
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/route

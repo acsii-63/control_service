@@ -1,0 +1,32 @@
+[35m[1mScanning dependencies of target peripherals_status[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o[0m
+In file included from [01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/include/peripherals_status/peripherals_status.h:30[m[K,
+                 from [01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:1[m[K:
+[01m[K/home/pino/pino_ws/papi/PAPI.h:[m[K In function ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> > PAPI::system::getFilesNamesWithExtensionFromDir(const string&, const string&)[m[K’:
+[01m[K/home/pino/pino_ws/papi/PAPI.h:1811:39:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::filesystem[m[K’ has not been declared
+ 1811 |         for (const auto &entry : std::[01;31m[Kfilesystem[m[K::directory_iterator(_path_to_dir))
+      |                                       [01;31m[K^~~~~~~~~~[m[K
+[01m[K/home/pino/pino_ws/papi/PAPI.h:1815:33:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[K::[m[K’ token
+ 1815 |     catch (const std::filesystem[01;31m[K::[m[Kfilesystem_error &ex)
+      |                                 [01;31m[K^~[m[K
+[01m[K/home/pino/pino_ws/papi/PAPI.h:1815:33:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K)[m[K’ before ‘[01m[K::[m[K’ token
+ 1815 |     catch [34m[K([m[Kconst std::filesystem[01;31m[K:[m[K[32m[K:[m[Kfilesystem_error &ex)
+      |           [34m[K~[m[K                     [01;31m[K^[m[K[32m[K~[m[K
+      |                                 [32m[K)[m[K
+[01m[K/home/pino/pino_ws/papi/PAPI.h:1815:33:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K{[m[K’ before ‘[01m[K::[m[K’ token
+ 1815 |     catch (const std::filesystem[01;31m[K::[m[Kfilesystem_error &ex)
+      |                                 [01;31m[K^~[m[K
+[01m[K/home/pino/pino_ws/papi/PAPI.h:1815:35:[m[K [01;31m[Kerror: [m[K‘[01m[K::filesystem_error[m[K’ has not been declared
+ 1815 |     catch (const std::filesystem::[01;31m[Kfilesystem_error[m[K &ex)
+      |                                   [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/pino/pino_ws/papi/PAPI.h:1815:53:[m[K [01;31m[Kerror: [m[K‘[01m[Kex[m[K’ was not declared in this scope; did you mean ‘[01m[Kexp[m[K’?
+ 1815 |     catch (const std::filesystem::filesystem_error &[01;31m[Kex[m[K)
+      |                                                     [01;31m[K^~[m[K
+      |                                                     [32m[Kexp[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::RTK_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/peripherals_status/src/peripherals_status.cpp:368:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  368 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+make[2]: *** [CMakeFiles/peripherals_status.dir/build.make:63: CMakeFiles/peripherals_status.dir/src/peripherals_status.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:576: CMakeFiles/peripherals_status.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2
