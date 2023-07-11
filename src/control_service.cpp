@@ -121,7 +121,7 @@ bool initCheck()
         elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - sendTime);
 
         std::string current_flag = PAPI::communication::receiveMessage_netcat(DEFAULT_CONTROL_CONFIRM_PORT, DEFAULT_IMAGE_CONFIRM_TIMEOUT);
-        std::cout << current_flag;
+        std::cout << current_flag << std::endl;
         flags.push_back(current_flag);
     } while (elapsed_duration < wait_for_image_confirm_timeout && flags.size() < num_of_images);
 
@@ -137,7 +137,7 @@ bool initCheck()
     {
         PAPI::communication::sendMessage_echo_netcat("[ INFO] Got enough Image confirmation from GCS.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
-        flags = PAPI::system::readAllFLAGsFromFile(DEFAULT_MESSAGE_FILE_PATH);
+        // flags = PAPI::system::readAllFLAGsFromFile(DEFAULT_MESSAGE_FILE_PATH);
     }
 
     if (!PAPI::system::checkAllFLAG(flags))
@@ -146,7 +146,7 @@ bool initCheck()
         PAPI::system::sleepLessThanASecond(0.1);
         return false;
     }
-    else if (num_of_images > 0)
+    else
     {
         PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS (Peripherals).", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
@@ -170,7 +170,7 @@ bool initCheck()
     PAPI::system::sleepLessThanASecond(0.1);
     std::string permission;
 
-    if (!PAPI::system::getNewestFLAG(DEFAULT_MESSAGE_FILE_PATH, permission, DEFAULT_GCS_CONFIRM_TIMEOUT))
+    if (!PAPI::system::getNewestFLAG(DEFAULT_CONTROL_CONFIRM_PORT, permission, DEFAULT_GCS_CONFIRM_TIMEOUT))
     {
         PAPI::communication::sendMessage_echo_netcat("[ERROR] UAV will not be airborne or engaged in flight activities.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
