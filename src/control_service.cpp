@@ -8,6 +8,9 @@ MissionRequest mission;
 PAPI::communication::Server server_peripherals(DEFAULT_STATUS_CONTROL_SERVICE_PORT);
 PAPI::communication::Client client_peripherals(LOCAL_HOST, DEFAULT_STATUS_ROS_NODE_PORT);
 
+PAPI::communication::Server server_route(DEFAULT_ROUTE_CONTROL_SERVICE_PORT);
+PAPI::communication::Client client_route(LOCAL_HOST, DEFAULT_ROUTE_ROS_NODE_PORT);
+
 void driver_loader()
 {
     std::string cmd;               // command
@@ -37,6 +40,55 @@ void driver_loader()
     argv.clear();
 }
 
+bool InitSequenceAddition()
+{
+    /* Connect to control node: */
+    std::cout << "START CONNECTING." << std::endl;
+    int client_connection_result = client_peripherals.clientStart();
+    int server_connection_result = server_peripherals.serverStart();
+    if (client_connection_result == -1 || server_connection_result == -1)
+    {
+        PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to control node.", DEFAULT_COMM_MSG_PORT);
+        PAPI::system::sleepLessThanASecond(0.1);
+        return false;
+    }
+
+    /************************************/
+
+    /* Peripherals usage status change: */
+    std::vector<int> list;
+    mission.sequence_istructions[0]->Init_getPeripherals(list);
+    std::stringstream ss;
+    for (auto i = 0; i < list.size(); i++)
+        ss << list[i] << "|";
+    server_peripherals.sendMsg(ss.str());
+
+    /************************************/
+
+    /* Send Image, Status and get Response: */
+    return (initCheck());
+}
+
+bool TravelSequenceAddition()
+{
+    /* Connect to route status node: */
+    int client_connection_result = client_peripherals.clientStart();
+    int server_connection_result = server_peripherals.serverStart();
+    if (client_connection_result == -1 || server_connection_result == -1)
+    {
+        PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to route status node.", DEFAULT_COMM_MSG_PORT);
+        PAPI::system::sleepLessThanASecond(0.1);
+    }
+
+    return true;
+}
+
+bool ActionSequenceAddition()
+{
+
+    return true;
+}
+
 // [DEMO] Init the system, contain PX4, MAVROS and GEOMETRIC_CONTROLLER.
 bool demo()
 {
@@ -45,8 +97,7 @@ bool demo()
     px4_argv.push_back("px4");
     px4_argv.push_back("posix_sitl.launch");
     px4_argv.push_back("> /home/pino/logs/roslaunch_logs/px4_log.log");
-    // px4_argv.push_back("2>&1 &");
-    px4_argv.push_back("2>&1");
+    px4_argv.push_back("2>&1 &");
 
     std::string mavros_cmd = "roslaunch";
     std::vector<std::string> mavros_argv;
@@ -86,15 +137,6 @@ bool demo()
 
     PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
     sleep(1); // Wait for performace
-
-    /*************************************************/
-
-    std::cout << "START CONNECTING." << std::endl;
-    int client_connection_result = client_peripherals.clientStart();
-    int server_connection_result = server_peripherals.serverStart();
-    if (client_connection_result == -1 || server_connection_result == -1)
-        return false;
-    return true;
 }
 
 // Init the system, contain MAVROS and GEOMETRIC_CONTROLLER.
@@ -123,6 +165,9 @@ bool preInit()
 
     /*************************************************/
 
+    driver_loader();
+    sleep(5); // Wait for performance
+
     PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
     sleep(5); // Wait for perfomance
 
@@ -131,17 +176,9 @@ bool preInit()
 
     PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
     sleep(1); // Wait for performace
-
-    /*************************************************/
-
-    std::cout << "START CONNECTING." << std::endl;
-    int client_connection_result = client_peripherals.clientStart();
-    int server_connection_result = server_peripherals.serverStart();
-    if (client_connection_result == -1 || server_connection_result == -1)
-        return false;
-    return true;
 }
 
+// Send Image, Status and get Response
 bool initCheck()
 {
     std::string first_msg = "";
@@ -151,8 +188,6 @@ bool initCheck()
     do
     {
         first_msg = client_peripherals.reciveMessage();
-        // std::cout << std::endl
-        //           << first_msg << std::endl;
         startTime_firstStatus = std::chrono::high_resolution_clock::now();
     } while (first_msg.empty());
 
@@ -217,14 +252,6 @@ bool initCheck()
     PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for confirm from GCS.", DEFAULT_COMM_MSG_PORT);
     PAPI::system::sleepLessThanASecond(0.1);
 
-    // do
-    // { // Check if the timeout has occurred
-    //     auto currentTime = std::chrono::high_resolution_clock::now();
-    //     elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - sendTime);
-    //     confirm_msg = PAPI::system::readLastLineFromFile(DEFAULT_MESSAGE_FILE_PATH);
-
-    // } while (elapsed_duration < wait_for_image_confirm_timeout && confirm_msg.empty());
-
     do
     { // Check if the timeout has occurred
         auto currentTime = std::chrono::high_resolution_clock::now();
@@ -232,18 +259,6 @@ bool initCheck()
     } while (elapsed_duration < wait_for_image_confirm_timeout && !PAPI::system::FLAG_isEnough(num_of_images, DEFAULT_MESSAGE_FILE_PATH));
 
     std::cout << "PASS #3.\n"; /************************************/
-
-    // if (confirm_msg.empty())
-    // {
-    //     PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Wait for image check TIMEOUT.", DEFAULT_COMM_MSG_PORT);
-    //     PAPI::system::sleepLessThanASecond(0.1);
-    //     return false;
-    // }
-    // else
-    // {
-    //     PAPI::communication::sendMessage_echo_netcat("[ INFO] Got confirm from GCS.", DEFAULT_COMM_MSG_PORT);
-    //     PAPI::system::sleepLessThanASecond(0.1);
-    // }
 
     std::vector<std::string> flags;
     if (!PAPI::system::FLAG_isEnough(num_of_images, DEFAULT_MESSAGE_FILE_PATH))
@@ -258,18 +273,6 @@ bool initCheck()
         PAPI::system::sleepLessThanASecond(0.1);
         flags = PAPI::system::readAllFLAGsFromFile(DEFAULT_MESSAGE_FILE_PATH);
     }
-
-    // if (!PAPI::system::checkFLAG(confirm_msg))
-    // {
-    //     PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Reject from GCS.", DEFAULT_COMM_MSG_PORT);
-    //     PAPI::system::sleepLessThanASecond(0.1);
-    //     return false;
-    // }
-    // else
-    // {
-    //     PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS.", DEFAULT_COMM_MSG_PORT);
-    //     PAPI::system::sleepLessThanASecond(0.1);
-    // }
 
     if (!PAPI::system::checkAllFLAG(flags))
     {
@@ -328,37 +331,49 @@ bool initCheck()
 // The main control is running in here, contain json parsing, handle problem, make mission, comm with others...
 bool missionExecution()
 {
-    // if (!PAPI::system::jsonParsing(DEFAULT_JSON_FILE_PATH, mission))
     std::string mission_path = DEFAULT_MISSION_DIR_PATH;
     mission_path = mission_path + PAPI::system::getMissionFile(DEFAULT_MISSION_DIR_PATH);
     mission_path.pop_back();
     std::cout << mission_path << std::endl;
     if (!PAPI::system::jsonParsing(mission_path, mission))
         return false;
+
     PAPI::mission_id = mission.id;
 
     int index = 0;
     while (index < mission.number_sequence_items)
     {
         { /* Init Instruction Addition: */
-            if (index == 0)
+            if (mission.sequence_names[index] == "init_sequence")
             {
-                /* Peripherals usage status change: */
-                std::vector<int> list;
-                mission.sequence_istructions[0]->Init_getPeripherals(list);
-                std::stringstream ss;
-                for (auto i = 0; i < list.size(); i++)
-                    ss << list[i] << "|";
-                server_peripherals.sendMsg(ss.str());
-                // std::cout << std::endl
-                //           << ss.str() << std::endl;
-
-                /************************************/
-
-                /* Send Image, Status and get Response: */
-                if (!initCheck())
+                if (!InitSequenceAddition())
                 {
                     PAPI::communication::sendMessage_echo_netcat("[ERROR] Fail to make Init Instruction.", DEFAULT_COMM_MSG_PORT);
+                    PAPI::system::sleepLessThanASecond(0.1);
+                    return false;
+                }
+            }
+        }
+
+        { /* Travel Instruction Addition: */
+            if (mission.sequence_names[index] == "travel_sequence")
+            {
+                if (!TravelSequenceAddition())
+                {
+                    PAPI::communication::sendMessage_echo_netcat("[ERROR] Fail to make Travel Instruction.", DEFAULT_COMM_MSG_PORT);
+                    PAPI::system::sleepLessThanASecond(0.1);
+                    return false;
+                }
+            }
+        }
+
+        { /* Action Instruction Addition: */
+            if (mission.sequence_names[index] == "action_sequence")
+            {
+                if (!ActionSequenceAddition())
+                {
+                    PAPI::communication::sendMessage_echo_netcat("[ERROR] Fail to make Action Instruction.", DEFAULT_COMM_MSG_PORT);
+                    PAPI::system::sleepLessThanASecond(0.1);
                     return false;
                 }
             }
@@ -367,9 +382,9 @@ bool missionExecution()
         if (!PAPI::drone::makeInstruction(mission.sequence_istructions[index]))
         {
             std::stringstream ss;
-            ss << "[ERROR] Fail to make instruction no." << index << ": " << mission.sequence_istructions[index]->name;
+            ss << "[ERROR] Fail to make instruction no." << index << ": " << mission.sequence_istructions[index]->name << ".";
             PAPI::communication::sendMessage_echo_netcat(ss.str(), DEFAULT_COMM_MSG_PORT);
-
+            PAPI::system::sleepLessThanASecond(0.1);
             return false;
         }
         ++index;
