@@ -5,8 +5,8 @@
 
 MissionRequest mission;
 
-PAPI::communication::Server server_peripherals(DEFAULT_PERIPHERALS_STATUS_CONTROL_PORT);
-PAPI::communication::Client client_peripherals(LOCAL_HOST, DEFAULT_PERIPHERALS_STATUS_NODE_PORT);
+PAPI::communication::Server server_peripherals(DEFAULT_STATUS_CONTROL_SERVICE_PORT);
+PAPI::communication::Client client_peripherals(LOCAL_HOST, DEFAULT_STATUS_ROS_NODE_PORT);
 
 void driver_loader()
 {

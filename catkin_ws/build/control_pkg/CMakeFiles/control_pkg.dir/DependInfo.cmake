@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control_pkg.cpp" "/home/pino/pino_ws/control_service/catkin_ws/build/control_pkg/CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o"
+  "/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp" "/home/pino/pino_ws/control_service/catkin_ws/build/control_pkg/CMakeFiles/control_pkg.dir/src/control.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -21,6 +21,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/jsoncpp"
   "/usr/local/include/opencv4"
   "/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/include"
+  "/home/pino/catkin_ws/devel/.private/wfov_camera_msgs/include"
   "/home/pino/catkin_ws/devel/.private/yaml_cpp_catkin/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"

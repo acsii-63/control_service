@@ -57,27 +57,27 @@ include CMakeFiles/control_pkg.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/control_pkg.dir/flags.make
 
-CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o: CMakeFiles/control_pkg.dir/flags.make
-CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o: /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control_pkg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pino/pino_ws/control_service/catkin_ws/build/control_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o -c /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control_pkg.cpp
+CMakeFiles/control_pkg.dir/src/control.cpp.o: CMakeFiles/control_pkg.dir/flags.make
+CMakeFiles/control_pkg.dir/src/control.cpp.o: /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pino/pino_ws/control_service/catkin_ws/build/control_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/control_pkg.dir/src/control.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/control_pkg.dir/src/control.cpp.o -c /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp
 
-CMakeFiles/control_pkg.dir/src/control_pkg.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/control_pkg.dir/src/control_pkg.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control_pkg.cpp > CMakeFiles/control_pkg.dir/src/control_pkg.cpp.i
+CMakeFiles/control_pkg.dir/src/control.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/control_pkg.dir/src/control.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp > CMakeFiles/control_pkg.dir/src/control.cpp.i
 
-CMakeFiles/control_pkg.dir/src/control_pkg.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/control_pkg.dir/src/control_pkg.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control_pkg.cpp -o CMakeFiles/control_pkg.dir/src/control_pkg.cpp.s
+CMakeFiles/control_pkg.dir/src/control.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/control_pkg.dir/src/control.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp -o CMakeFiles/control_pkg.dir/src/control.cpp.s
 
 # Object files for target control_pkg
 control_pkg_OBJECTS = \
-"CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o"
+"CMakeFiles/control_pkg.dir/src/control.cpp.o"
 
 # External object files for target control_pkg
 control_pkg_EXTERNAL_OBJECTS =
 
-/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so: CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so: CMakeFiles/control_pkg.dir/src/control.cpp.o
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so: CMakeFiles/control_pkg.dir/build.make
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so: CMakeFiles/control_pkg.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pino/pino_ws/control_service/catkin_ws/build/control_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so"

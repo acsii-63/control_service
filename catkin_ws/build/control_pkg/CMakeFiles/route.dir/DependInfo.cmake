@@ -19,6 +19,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/jsoncpp"
   "/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/include"
+  "/home/pino/catkin_ws/devel/.private/wfov_camera_msgs/include"
   "/home/pino/catkin_ws/devel/.private/yaml_cpp_catkin/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"

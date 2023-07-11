@@ -32,6 +32,7 @@ Not searching for unused variables given on the command line.
 [36m--[0m Using Python nosetests: /usr/bin/nosetests3
 [36m--[0m catkin 0.8.10
 [36m--[0m BUILD_SHARED_LIBS is on
+[36m--[0m Using these message generators: gencpp;geneus;genlisp;gennodejs;genpy
 [36m--[0m Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1")
 [36m--[0m Checking for module 'jsoncpp'
 [36m--[0m   Found jsoncpp, version 1.7.4

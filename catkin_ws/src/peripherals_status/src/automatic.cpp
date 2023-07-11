@@ -1,8 +1,8 @@
 #include "peripherals_status/peripherals_status.h"
 #include "/home/pino/pino_ws/papi/PAPI.h"
 
-PAPI::communication::Server server(DEFAULT_PERIPHERALS_STATUS_NODE_PORT);
-PAPI::communication::Client client(LOCAL_HOST, DEFAULT_PERIPHERALS_STATUS_CONTROL_PORT);
+PAPI::communication::Server server(DEFAULT_STATUS_ROS_NODE_PORT);
+PAPI::communication::Client client(LOCAL_HOST, DEFAULT_STATUS_CONTROL_SERVICE_PORT);
 
 std::vector<int> list;
 

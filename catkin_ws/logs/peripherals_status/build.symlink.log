@@ -1,5 +1,5 @@
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/share/peripherals_status/cmake/peripherals_statusConfig-version.cmake, /home/pino/pino_ws/control_service/catkin_ws/devel/share/peripherals_status/cmake/peripherals_statusConfig-version.cmake)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/share/peripherals_status/cmake/peripherals_statusConfig.cmake, /home/pino/pino_ws/control_service/catkin_ws/devel/share/peripherals_status/cmake/peripherals_statusConfig.cmake)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/libperipherals_status.so, /home/pino/pino_ws/control_service/catkin_ws/devel/lib/libperipherals_status.so)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/peripherals_status/automatic, /home/pino/pino_ws/control_service/catkin_ws/devel/lib/peripherals_status/automatic)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status/lib/pkgconfig/peripherals_status.pc, /home/pino/pino_ws/control_service/catkin_ws/devel/lib/pkgconfig/peripherals_status.pc)
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/share/peripherals_status/cmake/peripherals_statusConfig-version.cmake
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/share/peripherals_status/cmake/peripherals_statusConfig.cmake
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/libperipherals_status.so
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/peripherals_status/automatic
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/pkgconfig/peripherals_status.pc

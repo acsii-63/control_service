@@ -5,3 +5,4 @@ control_pkg
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so /home/pino/pino_ws/control_service/catkin_ws/devel/lib/libcontrol_pkg.so
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/pkgconfig/control_pkg.pc /home/pino/pino_ws/control_service/catkin_ws/devel/lib/pkgconfig/control_pkg.pc
 /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/route
+/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/automatic /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/automatic

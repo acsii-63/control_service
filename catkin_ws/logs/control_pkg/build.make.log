@@ -1,8 +1,18 @@
 [35m[1mScanning dependencies of target control_pkg[0m
-[ 25%] [32mBuilding CXX object CMakeFiles/control_pkg.dir/src/control_pkg.cpp.o[0m
-[ 50%] [32m[1mLinking CXX shared library /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so[0m
-[ 50%] Built target control_pkg
+[ 16%] [32mBuilding CXX object CMakeFiles/control_pkg.dir/src/control.cpp.o[0m
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::RTK_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp:368:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  368 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[ 33%] [32m[1mLinking CXX shared library /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so[0m
+[ 33%] Built target control_pkg
 [35m[1mScanning dependencies of target route[0m
-[ 75%] [32mBuilding CXX object CMakeFiles/route.dir/src/route.cpp.o[0m
-[100%] [32m[1mLinking CXX executable /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route[0m
+[35m[1mScanning dependencies of target automatic[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/route.dir/src/route.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/automatic.dir/src/automatic.cpp.o[0m
+[ 83%] [32m[1mLinking CXX executable /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route[0m
+[100%] [32m[1mLinking CXX executable /home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/automatic[0m
 [100%] Built target route
+/usr/bin/ld: warning: libopencv_imgcodecs.so.4.2, needed by /opt/ros/noetic/lib/libcv_bridge.so, may conflict with libopencv_imgcodecs.so.407
+/usr/bin/ld: warning: libopencv_features2d.so.4.2, needed by /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0, may conflict with libopencv_features2d.so.407
+[100%] Built target automatic

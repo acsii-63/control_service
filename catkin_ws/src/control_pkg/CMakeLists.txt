@@ -8,8 +8,12 @@ project(control_pkg)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  nav_msgs
   roscpp
+  sensor_msgs
   std_msgs
+  wfov_camera_msgs
+  mavros_msgs
   yaml_cpp_catkin
 )
 
@@ -148,7 +152,7 @@ include_directories(
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
-  src/control_pkg.cpp
+  src/control.cpp
 )
 
 ## Add cmake target dependencies of the library
@@ -163,6 +167,17 @@ add_library(${PROJECT_NAME}
 
 add_executable(route src/route.cpp)
 target_link_libraries(route
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+  ${JSONCPP_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${cv_bridge_LIBRARIES}
+  ${YAML_CPP_LIBRARIES}
+  Threads::Threads
+)
+
+add_executable(automatic src/automatic.cpp)
+target_link_libraries(automatic
   ${PROJECT_NAME}
   ${catkin_LIBRARIES}
   ${JSONCPP_LIBRARIES}
