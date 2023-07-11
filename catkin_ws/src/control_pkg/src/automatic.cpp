@@ -9,6 +9,7 @@ std::vector<int> list;
 int connectToControlService()
 {
     int serverResult = server.serverStart();
+    PAPI::system::sleepLessThanASecond(0.5);
     int clientResult = client.clientStart();
 
     if (serverResult == -1 || clientResult == -1)
@@ -29,7 +30,7 @@ void addPeripherals()
 
     std::string msg_str = "";
     while (msg_str.empty())
-        msg_str = client.reciveMessage();
+        msg_str = client.receiveMessage();
 
     std::stringstream ss(msg_str);
     std::string number_str;
@@ -101,7 +102,7 @@ int main(int argc, char **argv)
 
         server.sendMsg(peripherals_status->getStatus_toString());
         // server.sendMsg(route_status->routeMessageFoward());
-
+        // peripherals_status->debug();
         ros::spinOnce();
         ros::Duration(0.1).sleep();
     }

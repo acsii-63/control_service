@@ -29,7 +29,7 @@ void addPeripherals()
 
     std::string msg_str = "";
     while (msg_str.empty())
-        msg_str = client.reciveMessage();
+        msg_str = client.receiveMessage();
 
     std::stringstream ss(msg_str);
     std::string number_str;

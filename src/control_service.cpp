@@ -40,144 +40,6 @@ void driver_loader()
     argv.clear();
 }
 
-bool InitSequenceAddition()
-{
-    /* Connect to control node: */
-    std::cout << "START CONNECTING." << std::endl;
-    int client_connection_result = client_peripherals.clientStart();
-    int server_connection_result = server_peripherals.serverStart();
-    if (client_connection_result == -1 || server_connection_result == -1)
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to control node.", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-        return false;
-    }
-
-    /************************************/
-
-    /* Peripherals usage status change: */
-    std::vector<int> list;
-    mission.sequence_istructions[0]->Init_getPeripherals(list);
-    std::stringstream ss;
-    for (auto i = 0; i < list.size(); i++)
-        ss << list[i] << "|";
-    server_peripherals.sendMsg(ss.str());
-
-    /************************************/
-
-    /* Send Image, Status and get Response: */
-    return (initCheck());
-}
-
-bool TravelSequenceAddition()
-{
-    /* Connect to route status node: */
-    int client_connection_result = client_peripherals.clientStart();
-    int server_connection_result = server_peripherals.serverStart();
-    if (client_connection_result == -1 || server_connection_result == -1)
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to route status node.", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-    }
-
-    return true;
-}
-
-bool ActionSequenceAddition()
-{
-
-    return true;
-}
-
-// [DEMO] Init the system, contain PX4, MAVROS and GEOMETRIC_CONTROLLER.
-bool demo()
-{
-    std::string px4_cmd = "roslaunch";
-    std::vector<std::string> px4_argv;
-    px4_argv.push_back("px4");
-    px4_argv.push_back("posix_sitl.launch");
-    px4_argv.push_back("> /home/pino/logs/roslaunch_logs/px4_log.log");
-    px4_argv.push_back("2>&1 &");
-
-    std::string mavros_cmd = "roslaunch";
-    std::vector<std::string> mavros_argv;
-    mavros_argv.push_back("mavros");
-    mavros_argv.push_back("px4.launch");
-    mavros_argv.push_back("fcu_url:=\"udp://:14540@localhost:14557\"");
-    mavros_argv.push_back("> /home/pino/logs/roslaunch_logs/mavros_log.log");
-    mavros_argv.push_back("2>&1 &");
-
-    std::string controller_cmd = "roslaunch";
-    std::vector<std::string> controller_argv;
-    controller_argv.push_back("geometric_controller");
-    controller_argv.push_back("automatic.launch");
-    controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
-    controller_argv.push_back("2>&1 &");
-
-    std::string control_ros_status_cmd = "rosrun";
-    std::vector<std::string> control_ros_status_argv;
-    control_ros_status_argv.push_back("control_pkg");
-    control_ros_status_argv.push_back("automatic");
-    control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/control_log.log");
-    control_ros_status_argv.push_back("2>&1 &");
-
-    /*************************************************/
-
-    driver_loader();
-    sleep(5); // Wait for performance
-
-    PAPI::system::runCommand_system(px4_cmd, px4_argv);
-    sleep(5); // Wait for performance
-
-    PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
-    sleep(5); // Wait for perfomance
-
-    PAPI::system::runCommand_system(controller_cmd, controller_argv);
-    sleep(5); // Wait for performance
-
-    PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
-    sleep(1); // Wait for performace
-}
-
-// Init the system, contain MAVROS and GEOMETRIC_CONTROLLER.
-bool preInit()
-{
-    std::string mavros_cmd = "roslaunch";
-    std::vector<std::string> mavros_argv;
-    mavros_argv.push_back("mavros");
-    mavros_argv.push_back("px4.launch");
-    mavros_argv.push_back("> /home/pino/logs/roslaunch_logs/mavros_log.log");
-    mavros_argv.push_back("2>&1 &");
-
-    std::string controller_cmd = "roslaunch";
-    std::vector<std::string> controller_argv;
-    controller_argv.push_back("geometric_controller");
-    controller_argv.push_back("automatic.launch");
-    controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
-    controller_argv.push_back("2>&1 &");
-
-    std::string control_ros_status_cmd = "rosrun";
-    std::vector<std::string> control_ros_status_argv;
-    control_ros_status_argv.push_back("control_pkg");
-    control_ros_status_argv.push_back("automatic");
-    control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/control_log.log");
-    control_ros_status_argv.push_back("2>&1 &");
-
-    /*************************************************/
-
-    driver_loader();
-    sleep(5); // Wait for performance
-
-    PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
-    sleep(5); // Wait for perfomance
-
-    PAPI::system::runCommand_system(controller_cmd, controller_argv);
-    sleep(5); // Wait for performance
-
-    PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
-    sleep(1); // Wait for performace
-}
-
 // Send Image, Status and get Response
 bool initCheck()
 {
@@ -187,14 +49,14 @@ bool initCheck()
     PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for first status message...", DEFAULT_COMM_MSG_PORT);
     do
     {
-        first_msg = client_peripherals.reciveMessage();
+        first_msg = client_peripherals.receiveMessage();
         startTime_firstStatus = std::chrono::high_resolution_clock::now();
     } while (first_msg.empty());
 
     // Set the timeout duration
     auto wait_for_active_duration = std::chrono::seconds(DEFAULT_TIME_WAIT_FOR_ACTIVE);
     std::chrono::seconds elapsed_duration;
-    std::string last_msg = client_peripherals.reciveMessage();
+    std::string last_msg = client_peripherals.receiveMessage();
 
     PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for final status result...", DEFAULT_COMM_MSG_PORT);
     do
@@ -203,7 +65,7 @@ bool initCheck()
         auto currentTime = std::chrono::high_resolution_clock::now();
         elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - startTime_firstStatus);
 
-        last_msg = client_peripherals.reciveMessage();
+        last_msg = client_peripherals.receiveMessage();
 
     } while (elapsed_duration < wait_for_active_duration);
 
@@ -249,19 +111,23 @@ bool initCheck()
     std::string confirm_msg = "";                                                              // Confirm message
     auto wait_for_image_confirm_timeout = std::chrono::seconds(DEFAULT_IMAGE_CONFIRM_TIMEOUT); // Set the timeout duration
     auto sendTime = std::chrono::high_resolution_clock::now();                                 // Time after send image(s)
-    PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for confirm from GCS.", DEFAULT_COMM_MSG_PORT);
+    std::vector<std::string> flags;                                                            // Vector contain FLAGs
+    PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for Image confirm from GCS.", DEFAULT_COMM_MSG_PORT);
     PAPI::system::sleepLessThanASecond(0.1);
 
     do
     { // Check if the timeout has occurred
         auto currentTime = std::chrono::high_resolution_clock::now();
         elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - sendTime);
-    } while (elapsed_duration < wait_for_image_confirm_timeout && !PAPI::system::FLAG_isEnough(num_of_images, DEFAULT_MESSAGE_FILE_PATH));
+
+        std::string current_flag = PAPI::communication::receiveMessage_netcat(DEFAULT_CONTROL_CONFIRM_PORT, DEFAULT_IMAGE_CONFIRM_TIMEOUT);
+        std::cout << current_flag;
+        flags.push_back(current_flag);
+    } while (elapsed_duration < wait_for_image_confirm_timeout && flags.size() < num_of_images);
 
     std::cout << "PASS #3.\n"; /************************************/
 
-    std::vector<std::string> flags;
-    if (!PAPI::system::FLAG_isEnough(num_of_images, DEFAULT_MESSAGE_FILE_PATH))
+    if (flags.size() != num_of_images)
     {
         PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Missing FLAG(s) after TIMEOUT duration.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
@@ -269,7 +135,7 @@ bool initCheck()
     }
     else
     {
-        PAPI::communication::sendMessage_echo_netcat("[ INFO] Got enough confirmation from GCS.", DEFAULT_COMM_MSG_PORT);
+        PAPI::communication::sendMessage_echo_netcat("[ INFO] Got enough Image confirmation from GCS.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
         flags = PAPI::system::readAllFLAGsFromFile(DEFAULT_MESSAGE_FILE_PATH);
     }
@@ -286,17 +152,17 @@ bool initCheck()
         PAPI::system::sleepLessThanASecond(0.1);
     }
 
-    if (!PAPI::drone::peripheralsCheck(peripherals_status_vector))
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Peripherals check failed.", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-        return false;
-    }
-    else
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ INFO] Peripherals check passed. Everything is working.", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-    }
+    // if (!PAPI::drone::peripheralsCheck(peripherals_status_vector))
+    // {
+    //     PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Peripherals check failed.", DEFAULT_COMM_MSG_PORT);
+    //     PAPI::system::sleepLessThanASecond(0.1);
+    //     return false;
+    // }
+    // else
+    // {
+    //     PAPI::communication::sendMessage_echo_netcat("[ INFO] Peripherals check passed. Everything is working.", DEFAULT_COMM_MSG_PORT);
+    //     PAPI::system::sleepLessThanASecond(0.1);
+    // }
 
     std::cout << "PASS #4.\n"; /************************************/
 
@@ -318,12 +184,168 @@ bool initCheck()
             PAPI::system::sleepLessThanASecond(0.1);
             return false;
         }
-        else
+        else if (permission == FLAG_ALLOW_TO_FLY)
         {
             PAPI::communication::sendMessage_echo_netcat("[ INFO] UAV is going to execute the flight mission: GCS allowed.", DEFAULT_COMM_MSG_PORT);
             PAPI::system::sleepLessThanASecond(0.1);
         }
     }
+
+    return true;
+}
+
+bool InitSequenceAddition()
+{
+    /* Connect to control node: */
+    std::cout << "START CONNECTING." << std::endl;
+    int client_connection_result = client_peripherals.clientStart();
+    PAPI::system::sleepLessThanASecond(0.5);
+    int server_connection_result = server_peripherals.serverStart();
+    if (client_connection_result == -1 || server_connection_result == -1)
+    {
+        PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to control node.", DEFAULT_COMM_MSG_PORT);
+        PAPI::system::sleepLessThanASecond(0.1);
+        return false;
+    }
+
+    /************************************/
+
+    /* Peripherals usage status change: */
+    std::vector<int> list;
+    mission.sequence_istructions[0]->Init_getPeripherals(list);
+    std::stringstream ss;
+    for (auto i = 0; i < list.size(); i++)
+        ss << list[i] << "|";
+    server_peripherals.sendMsg(ss.str());
+    std::cout << ss.str() << std::endl;
+
+    /************************************/
+
+    /* Send Image, Status and get Response: */
+    return (initCheck());
+}
+
+bool TravelSequenceAddition()
+{
+    /* Connect to route status node: */
+    int client_connection_result = client_peripherals.clientStart();
+    int server_connection_result = server_peripherals.serverStart();
+    if (client_connection_result == -1 || server_connection_result == -1)
+    {
+        PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to route status node.", DEFAULT_COMM_MSG_PORT);
+        PAPI::system::sleepLessThanASecond(0.1);
+    }
+
+    return true;
+}
+
+bool ActionSequenceAddition()
+{
+
+    return true;
+}
+
+// [DEMO] Init the system, contain PX4, MAVROS and GEOMETRIC_CONTROLLER.
+bool demo()
+{
+    std::string px4_cmd = "roslaunch";
+    std::vector<std::string> px4_argv;
+    px4_argv.push_back("px4");
+    px4_argv.push_back("posix_sitl.launch");
+    px4_argv.push_back("> /home/pino/logs/roslaunch_logs/px4_log.log");
+    // px4_argv.push_back("2>&1 &");
+    px4_argv.push_back("&");
+
+    std::string mavros_cmd = "roslaunch";
+    std::vector<std::string> mavros_argv;
+    mavros_argv.push_back("mavros");
+    mavros_argv.push_back("px4.launch");
+    mavros_argv.push_back("fcu_url:=\"udp://:14540@localhost:14557\"");
+    mavros_argv.push_back("> /home/pino/logs/roslaunch_logs/mavros_log.log");
+    // mavros_argv.push_back("2>&1 &");
+    mavros_argv.push_back("&");
+
+    std::string controller_cmd = "roslaunch";
+    std::vector<std::string> controller_argv;
+    controller_argv.push_back("geometric_controller");
+    controller_argv.push_back("automatic.launch");
+    controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
+    // controller_argv.push_back("2>&1 &");
+    controller_argv.push_back("&");
+
+    std::string control_ros_status_cmd = "rosrun";
+    std::vector<std::string> control_ros_status_argv;
+    control_ros_status_argv.push_back("control_pkg");
+    control_ros_status_argv.push_back("automatic");
+    control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/control_log.log");
+    // control_ros_status_argv.push_back("peripherals_status");
+    // control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/peripherals_log.log");
+    // control_ros_status_argv.push_back("2>&1 &");
+    control_ros_status_argv.push_back("&");
+
+    /*************************************************/
+
+    driver_loader();
+    sleep(5); // Wait for performance
+
+    PAPI::system::runCommand_system(px4_cmd, px4_argv);
+    sleep(5); // Wait for performance
+
+    PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
+    sleep(5); // Wait for perfomance
+
+    PAPI::system::runCommand_system(controller_cmd, controller_argv);
+    sleep(5); // Wait for performance
+
+    PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
+    sleep(1); // Wait for performace
+
+    return true;
+}
+
+// Init the system, contain MAVROS and GEOMETRIC_CONTROLLER.
+bool preInit()
+{
+    std::string mavros_cmd = "roslaunch";
+    std::vector<std::string> mavros_argv;
+    mavros_argv.push_back("mavros");
+    mavros_argv.push_back("px4.launch");
+    mavros_argv.push_back("fcu_url:=\"udp://:14540@localhost:14557\"");
+    mavros_argv.push_back("> /home/pino/logs/roslaunch_logs/mavros_log.log");
+    // mavros_argv.push_back("2>&1 &");
+    mavros_argv.push_back("&");
+
+    std::string controller_cmd = "roslaunch";
+    std::vector<std::string> controller_argv;
+    controller_argv.push_back("geometric_controller");
+    controller_argv.push_back("automatic.launch");
+    controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
+    // controller_argv.push_back("2>&1 &");
+    controller_argv.push_back("&");
+
+    std::string control_ros_status_cmd = "rosrun";
+    std::vector<std::string> control_ros_status_argv;
+    control_ros_status_argv.push_back("control_pkg");
+    control_ros_status_argv.push_back("automatic");
+    control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/control_log.log");
+    // control_ros_status_argv.push_back("peripherals_status");
+    // control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/peripherals_log.log");
+    // control_ros_status_argv.push_back("2>&1 &");
+    control_ros_status_argv.push_back("&");
+
+    /*************************************************/
+
+    driver_loader();
+    sleep(5); // Wait for performance
+
+    PAPI::system::runCommand_system(mavros_cmd, mavros_argv);
+    sleep(5); // Wait for perfomance
+
+    PAPI::system::runCommand_system(controller_cmd, controller_argv);
+    sleep(5); // Wait for performance
+
+    PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
+    sleep(1); // Wait for performace
 
     return true;
 }
@@ -406,7 +428,7 @@ int main()
 {
     PAPI::system::createLogsFile(DEFAULT_LOG_DIR);
 
-    if (!demo())
+    if (!preInit())
     {
         // std::cerr << "MAVROS and GEOMETRIC_CONTROLLER initialization was unsuccessful." << std::endl;
         PAPI::communication::sendMessage_echo_netcat("[ERROR] MAVROS and GEOMETRIC_CONTROLLER initialization was unsuccessful.", DEFAULT_COMM_MSG_PORT);
