@@ -63,12 +63,12 @@ bool demo()
     controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
     controller_argv.push_back("2>&1 &");
 
-    std::string peripherals_status_cmd = "rosrun";
-    std::vector<std::string> peripherals_status_argv;
-    peripherals_status_argv.push_back("peripherals_status");
-    peripherals_status_argv.push_back("automatic");
-    peripherals_status_argv.push_back("> /home/pino/logs/rosrun_logs/peripherals_log.log");
-    peripherals_status_argv.push_back("2>&1 &");
+    std::string control_ros_status_cmd = "rosrun";
+    std::vector<std::string> control_ros_status_argv;
+    control_ros_status_argv.push_back("control_pkg");
+    control_ros_status_argv.push_back("automatic");
+    control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/control_log.log");
+    control_ros_status_argv.push_back("2>&1 &");
 
     /*************************************************/
 
@@ -84,13 +84,12 @@ bool demo()
     PAPI::system::runCommand_system(controller_cmd, controller_argv);
     sleep(5); // Wait for performance
 
-    PAPI::system::runCommand_system(peripherals_status_cmd, peripherals_status_argv);
+    PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
     sleep(1); // Wait for performace
 
     /*************************************************/
 
     std::cout << "START CONNECTING." << std::endl;
-    // int connection_result = (client_peripherals.clientStart() == -1 || server_peripherals.serverStart() == -1) ? -1 : 0;
     int client_connection_result = client_peripherals.clientStart();
     int server_connection_result = server_peripherals.serverStart();
     if (client_connection_result == -1 || server_connection_result == -1)
@@ -106,21 +105,21 @@ bool preInit()
     mavros_argv.push_back("mavros");
     mavros_argv.push_back("px4.launch");
     mavros_argv.push_back("> /home/pino/logs/roslaunch_logs/mavros_log.log");
-    // mavros_argv.push_back("2>&1 &");
+    mavros_argv.push_back("2>&1 &");
 
     std::string controller_cmd = "roslaunch";
     std::vector<std::string> controller_argv;
     controller_argv.push_back("geometric_controller");
     controller_argv.push_back("automatic.launch");
     controller_argv.push_back("> /home/pino/logs/roslaunch_logs/controller_log.log");
-    // controller_argv.push_back("2>&1 &");
+    controller_argv.push_back("2>&1 &");
 
-    std::string peripherals_status_cmd = "rosrun";
-    std::vector<std::string> peripherals_status_argv;
-    peripherals_status_argv.push_back("peripherals_status");
-    peripherals_status_argv.push_back("automatic");
-    peripherals_status_argv.push_back("> /home/pino/logs/rosrun_logs/peripherals_log.log");
-    // peripherals_status_argv.push_back("2>&1 &");
+    std::string control_ros_status_cmd = "rosrun";
+    std::vector<std::string> control_ros_status_argv;
+    control_ros_status_argv.push_back("control_pkg");
+    control_ros_status_argv.push_back("automatic");
+    control_ros_status_argv.push_back("> /home/pino/logs/rosrun_logs/control_log.log");
+    control_ros_status_argv.push_back("2>&1 &");
 
     /*************************************************/
 
@@ -130,14 +129,17 @@ bool preInit()
     PAPI::system::runCommand_system(controller_cmd, controller_argv);
     sleep(5); // Wait for performance
 
-    PAPI::system::runCommand_system(peripherals_status_cmd, peripherals_status_argv);
+    PAPI::system::runCommand_system(control_ros_status_cmd, control_ros_status_argv);
     sleep(1); // Wait for performace
 
     /*************************************************/
 
     std::cout << "START CONNECTING." << std::endl;
-    int connection_result = (client_peripherals.clientStart() == -1 || server_peripherals.serverStart() == -1) ? -1 : 0;
-    return (connection_result == -1) ? false : true;
+    int client_connection_result = client_peripherals.clientStart();
+    int server_connection_result = server_peripherals.serverStart();
+    if (client_connection_result == -1 || server_connection_result == -1)
+        return false;
+    return true;
 }
 
 bool initCheck()

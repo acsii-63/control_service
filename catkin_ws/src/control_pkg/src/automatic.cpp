@@ -90,7 +90,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "automatic");
     ros::NodeHandle nh("");
     PeripheralsStatus *peripherals_status = new PeripheralsStatus(nh);
-    RouteStatus *route_status = new RouteStatus(nh);
+    // RouteStatus *route_status = new RouteStatus(nh);
 
     addPeripherals();
     peripherals_status->addPeripherals(list);
@@ -100,7 +100,7 @@ int main(int argc, char **argv)
         peripherals_status->callBack_exist();
 
         server.sendMsg(peripherals_status->getStatus_toString());
-        server.sendMsg(route_status->routeMessageFoward());
+        // server.sendMsg(route_status->routeMessageFoward());
 
         ros::spinOnce();
         ros::Duration(0.1).sleep();
