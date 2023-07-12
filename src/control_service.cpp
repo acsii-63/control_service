@@ -115,19 +115,20 @@ bool initCheck()
     PAPI::communication::sendMessage_echo_netcat("[ INFO] Waiting for Image confirm from GCS.", DEFAULT_COMM_MSG_PORT);
     PAPI::system::sleepLessThanASecond(0.1);
 
-    do
-    { // Check if the timeout has occurred
-        auto currentTime = std::chrono::high_resolution_clock::now();
-        elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - sendTime);
+    if (num_of_images > 0)
+        do
+        { // Check if the timeout has occurred
+            auto currentTime = std::chrono::high_resolution_clock::now();
+            elapsed_duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - sendTime);
 
-        std::string current_flag = PAPI::communication::receiveMessage_netcat(DEFAULT_CONTROL_CONFIRM_PORT, DEFAULT_IMAGE_CONFIRM_TIMEOUT);
-        std::cout << current_flag << std::endl;
-        flags.push_back(current_flag);
-    } while (elapsed_duration < wait_for_image_confirm_timeout && flags.size() < num_of_images);
+            std::string current_flag = PAPI::communication::receiveMessage_netcat(DEFAULT_CONTROL_CONFIRM_PORT, DEFAULT_IMAGE_CONFIRM_TIMEOUT);
+            std::cout << current_flag << std::endl;
+            flags.push_back(current_flag);
+        } while (elapsed_duration < wait_for_image_confirm_timeout && flags.size() < num_of_images);
 
     std::cout << "PASS #3.\n"; /************************************/
 
-    if (flags.size() != num_of_images)
+    if (flags.size() < num_of_images && num_of_images > 0)
     {
         PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Missing FLAG(s) after TIMEOUT duration.", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
@@ -142,13 +143,13 @@ bool initCheck()
 
     if (!PAPI::system::checkAllFLAG(flags))
     {
-        PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Reject from GCS.", DEFAULT_COMM_MSG_PORT);
+        PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Reject from GCS (Camera).", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
         return false;
     }
     else
     {
-        PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS (Peripherals).", DEFAULT_COMM_MSG_PORT);
+        PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS (Camera).", DEFAULT_COMM_MSG_PORT);
         PAPI::system::sleepLessThanASecond(0.1);
     }
 
