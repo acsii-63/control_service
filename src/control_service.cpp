@@ -228,14 +228,27 @@ bool InitSequenceAddition()
 
 bool TravelSequenceAddition()
 {
-    /* Connect to route status node: */
-    int client_connection_result = client_peripherals.clientStart();
-    int server_connection_result = server_peripherals.serverStart();
-    if (client_connection_result == -1 || server_connection_result == -1)
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to route status node.", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-    }
+    // /* Connect to route status node: */
+    // int client_connection_result = client_route.clientStart();
+    // int server_connection_result = server_route.serverStart();
+    // if (client_connection_result == -1 || server_connection_result == -1)
+    // {
+    //     PAPI::communication::sendMessage_echo_netcat("[ WARN] Cannot connect to route status node.", DEFAULT_COMM_MSG_PORT);
+    //     PAPI::system::sleepLessThanASecond(0.1);
+    // }
+
+    /* Run control_pkg/route for route notifications: */
+    std::string route_cmd = "rosrun";
+    std::vector<std::string> route_argv;
+    route_argv.push_back("control_pkg");
+    route_argv.push_back("route");
+    route_argv.push_back("> /home/pino/logs/rosrun_logs/route_log.log");
+    route_argv.push_back("2>&1 &");
+
+    PAPI::system::runCommand_system(route_cmd, route_argv);
+
+    /*  */
+    
 
     return true;
 }

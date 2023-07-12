@@ -1,0 +1,19 @@
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp:[m[K In member function ‘[01m[Kbool PeripheralsStatus::RTK_exist(const ConstPtr&)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/control.cpp:368:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  368 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/route.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/route.cpp:39:88:[m[K [01;31m[Kerror: [m[Ktoo few arguments to function ‘[01m[Kvoid PAPI::communication::sendMessage_echo_netcat(const string&, int)[m[K’
+   39 |         PAPI::communication::sendMessage_echo_netcat(route_status->routeMessageFoward()[01;31m[K)[m[K;
+      |                                                                                        [01;31m[K^[m[K
+In file included from [01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/include/control_pkg/control.h:31[m[K,
+                 from [01m[K/home/pino/pino_ws/control_service/catkin_ws/src/control_pkg/src/route.cpp:1[m[K:
+[01m[K/home/pino/pino_ws/papi/PAPI.h:2507:6:[m[K [01;36m[Knote: [m[Kdeclared here
+ 2507 | void [01;36m[KPAPI[m[K::communication::sendMessage_echo_netcat(const std::string &_message, const int _port)
+      |      [01;36m[K^~~~[m[K
+make[2]: *** [CMakeFiles/route.dir/build.make:63: CMakeFiles/route.dir/src/route.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:227: CMakeFiles/route.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+/usr/bin/ld: warning: libopencv_imgcodecs.so.4.2, needed by /opt/ros/noetic/lib/libcv_bridge.so, may conflict with libopencv_imgcodecs.so.407
+/usr/bin/ld: warning: libopencv_features2d.so.4.2, needed by /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0, may conflict with libopencv_features2d.so.407
+make: *** [Makefile:141: all] Error 2
