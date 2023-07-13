@@ -35,9 +35,9 @@ PeripheralsStatus::PeripheralsStatus(const ros::NodeHandle &_nh) : nh(_nh)
         used[i] = false;
     }
 
-    FLIR_image_path = "/home/pino/image/flir_image.png";
-    D455_image_path = "/home/pino/image/d455_image.png";
-    T265_image_path = "/home/pino/image/t265_image.png";
+    FLIR_image_path = DEFAULT_IMAGE_DIR_PATH;
+    D455_image_path = DEFAULT_IMAGE_DIR_PATH;
+    T265_image_path = DEFAULT_IMAGE_DIR_PATH;
 }
 
 PeripheralsStatus::~PeripheralsStatus()
@@ -50,32 +50,56 @@ void PeripheralsStatus::FLIR_CallBack(const wfov_camera_msgs::WFOVImage::ConstPt
 
     const sensor_msgs::Image &ros_image = msg->image;
 
-    if (!FLIR_image_exist)
-    {
-        FLIR_image_exist = true;
-
-        cv_bridge::CvImagePtr cv_ptr;
-        try
-        {
-            cv_ptr = cv_bridge::toCvCopy(ros_image, sensor_msgs::image_encodings::BGR8);
-        }
-        catch (cv_bridge::Exception &e)
-        {
-            ROS_ERROR("cv_bridge exception: %s", e.what());
-            return;
-        }
-
-        cv::Mat cv_image = cv_ptr->image;
-        if (!cv::imwrite(FLIR_image_path, cv_image))
-            ROS_ERROR("Can not write FLIR image to: %s", FLIR_image_path.c_str());
-    }
-
     if (FLIR_exist(msg))
     {
+        if (!FLIR_image_exist)
+        {
+
+            cv_bridge::CvImagePtr cv_ptr;
+            try
+            {
+                cv_ptr = cv_bridge::toCvCopy(ros_image, sensor_msgs::image_encodings::BGR8);
+            }
+            catch (cv_bridge::Exception &e)
+            {
+                ROS_ERROR("cv_bridge exception: %s", e.what());
+                FLIR_image_exist = false;
+            }
+            cv::Mat cv_image = cv_ptr->image;
+            if (!cv::imwrite(FLIR_image_path, cv_image))
+            {
+                ROS_ERROR("Can not write FLIR image to: %s", FLIR_image_path.c_str());
+                FLIR_image_exist = false;
+            }
+            else
+                FLIR_image_exist = true;
+        }
+
+        /************************/
+
+        if (check_sendNewImage(DEVICE::FLIR))
+        {
+            cv_bridge::CvImagePtr cv_ptr;
+            try
+            {
+                cv_ptr = cv_bridge::toCvCopy(ros_image, sensor_msgs::image_encodings::BGR8);
+            }
+            catch (cv_bridge::Exception &e)
+            {
+                ROS_ERROR("cv_bridge exception: %s", e.what());
+            }
+            cv::Mat cv_image = cv_ptr->image;
+            if (!cv::imwrite(FLIR_image_path, cv_image))
+                ROS_ERROR("Can not write FLIR image to: %s", FLIR_image_path.c_str());
+
+            PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_DOWNWARD, mission_id);
+        }
+
+        /************************/
+
         // First image
         if (firstTime[DEVICE::FLIR].toSec() <= 0)
             firstTime[DEVICE::FLIR] = ros::Time::now();
-
         lastTime[DEVICE::FLIR] = ros::Time::now();
     }
     else
@@ -97,29 +121,55 @@ void PeripheralsStatus::D455_CallBack(const sensor_msgs::Image::ConstPtr &msg)
 
     const sensor_msgs::Image &ros_image = *msg;
 
-    if (!D455_image_exist)
-    {
-        D455_image_exist = true;
-
-        cv_bridge::CvImagePtr cv_ptr;
-        try
-        {
-            cv_ptr = cv_bridge::toCvCopy(ros_image, sensor_msgs::image_encodings::BGR8);
-        }
-        catch (cv_bridge::Exception &e)
-        {
-            ROS_ERROR("cv_bridge exception: %s", e.what());
-            return;
-        }
-
-        cv::Mat cv_image = cv_ptr->image;
-        if (!cv::imwrite(D455_image_path, cv_image))
-            ROS_ERROR("Can not write D455 image to: %s", D455_image_path.c_str());
-    }
-
-    // if (ros_image.data.size() > 0)
     if (D455_exist(msg))
     {
+        if (!D455_image_exist)
+        {
+            D455_image_exist = true;
+
+            cv_bridge::CvImagePtr cv_ptr;
+            try
+            {
+                cv_ptr = cv_bridge::toCvCopy(ros_image, sensor_msgs::image_encodings::BGR8);
+            }
+            catch (cv_bridge::Exception &e)
+            {
+                ROS_ERROR("cv_bridge exception: %s", e.what());
+                D455_image_exist = false;
+            }
+
+            cv::Mat cv_image = cv_ptr->image;
+            if (!cv::imwrite(D455_image_path, cv_image))
+            {
+                ROS_ERROR("Can not write D455 image to: %s", D455_image_path.c_str());
+                D455_image_exist = true;
+            }
+            else
+                D455_image_exist = false;
+        }
+
+        /************************/
+
+        if (check_sendNewImage(DEVICE::D455))
+        {
+            cv_bridge::CvImagePtr cv_ptr;
+            try
+            {
+                cv_ptr = cv_bridge::toCvCopy(ros_image, sensor_msgs::image_encodings::BGR8);
+            }
+            catch (cv_bridge::Exception &e)
+            {
+                ROS_ERROR("cv_bridge exception: %s", e.what());
+            }
+            cv::Mat cv_image = cv_ptr->image;
+            if (!cv::imwrite(D455_image_path, cv_image))
+                ROS_ERROR("Can not write D455 image to: %s", D455_image_path.c_str());
+
+            PAPI::system::sendImage(Peripheral::PERIPHERAL_CAM_FORWARD, mission_id);
+        }
+
+        /************************/
+
         // First image
         if (firstTime[DEVICE::D455].toSec() <= 0)
             firstTime[DEVICE::D455] = ros::Time::now();
@@ -453,6 +503,18 @@ void PeripheralsStatus::addPeripherals(const std::vector<int> &_list)
         used[list[i]] = true;
 }
 
+void PeripheralsStatus::addMissionID(const std::string &id)
+{
+    PeripheralsStatus::mission_id = id;
+}
+
+void PeripheralsStatus::setImagePath()
+{
+    FLIR_image_path += mission_id + "-" + DEFAULT_FLIR_PNG;
+    D455_image_path += mission_id + "-" + DEFAULT_D455_PNG;
+    T265_image_path += mission_id + "-" + DEFAULT_T265_PNG;
+}
+
 void PeripheralsStatus::debug()
 {
     std::cout << "MAV_STATE: " << MAV_STATE << std::endl;
@@ -476,6 +538,32 @@ std::string PeripheralsStatus::getStatus_toString()
     for (int i = 0; i <= 15; i++)
         ss << current_status[i] << "|";
     return ss.str();
+}
+
+bool PeripheralsStatus::check_sendNewImage(const int _device)
+{
+    switch (_device)
+    {
+    case DEVICE::FLIR:
+        if (ros::Time::now().toSec() - FLIR_lastImageTime.toSec() > image_fps_duration.toSec())
+        {
+            FLIR_lastImageTime = ros::Time::now();
+            return true;
+        }
+        return false;
+
+    case DEVICE::D455:
+        if (ros::Time::now().toSec() - D455_lastImageTime.toSec() > image_fps_duration.toSec())
+        {
+            D455_lastImageTime = ros::Time::now();
+            return true;
+        }
+        return false;
+
+    default:
+        return false;
+    }
+    return false;
 }
 
 /*****************************************************************/

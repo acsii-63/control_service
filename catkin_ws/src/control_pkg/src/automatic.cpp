@@ -5,6 +5,7 @@ PAPI::communication::Server server(DEFAULT_STATUS_ROS_NODE_PORT);
 PAPI::communication::Client client(LOCAL_HOST, DEFAULT_STATUS_CONTROL_SERVICE_PORT);
 
 std::vector<int> list;
+std::string id;
 
 int connectToControlService()
 {
@@ -18,7 +19,7 @@ int connectToControlService()
     return 0;
 }
 
-void addPeripherals()
+void listener()
 {
     list.push_back(DEVICE::FCU_BAT);
     list.push_back(DEVICE::FCU_GPS);
@@ -72,6 +73,11 @@ void addPeripherals()
             break;
         }
     }
+
+    msg_str.clear();
+    while (msg_str.empty())
+        msg_str = client.receiveMessage();
+    id = std::string(msg_str);
 }
 
 void closeSocket()
@@ -93,8 +99,10 @@ int main(int argc, char **argv)
     PeripheralsStatus *peripherals_status = new PeripheralsStatus(nh);
     // RouteStatus *route_status = new RouteStatus(nh);
 
-    addPeripherals();
+    listener();
     peripherals_status->addPeripherals(list);
+    peripherals_status->addMissionID(id);
+    peripherals_status->setImagePath();
 
     while (ros::ok())
     {

@@ -218,8 +218,14 @@ bool InitSequenceAddition()
     for (auto i = 0; i < list.size(); i++)
         ss << list[i] << "|";
     server_peripherals.sendMsg(ss.str());
+    PAPI::system::sleepLessThanASecond(0.5);
     std::cout << ss.str() << std::endl;
 
+    /* Send mission id: */
+    server_peripherals.sendMsg(mission.id);
+    std::cout << "id: " << mission.id << std::endl;
+    PAPI::system::sleepLessThanASecond(0.5);
+    
     /************************************/
 
     /* Send Image, Status and get Response: */
@@ -248,7 +254,6 @@ bool TravelSequenceAddition()
     PAPI::system::runCommand_system(route_cmd, route_argv);
 
     /*  */
-    
 
     return true;
 }

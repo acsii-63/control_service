@@ -45,6 +45,8 @@ const float GPS_max_VDOP = 1;
 const uint32_t uint32_zero = 0;
 ros::Time time_zero(uint32_zero, uint32_zero);
 
+auto image_fps_duration = ros::Duration(DEFAULT_IMAGE_FPS);
+
 class PeripheralsStatus
 {
 public:
@@ -75,11 +77,16 @@ public:
     std::vector<bool> callBack_status;
     std::vector<bool> used;
 
+    std::string mission_id;
+
     std::string FLIR_image_path;
     std::string D455_image_path;
     std::string T265_image_path;
 
     std::string MAV_STATE = "";
+
+    ros::Time FLIR_lastImageTime = time_zero;
+    ros::Time D455_lastImageTime = time_zero;
 
     /****************************/
 
@@ -95,7 +102,14 @@ public:
     // If the callBack function of a subscriber is not be executed, change the current_status of it to NOT_FOUND
     void callBack_exist();
 
+    // Update peripheral usage status
     void addPeripherals(const std::vector<int> &_list);
+
+    // Add mission id to PeripheralsStatus::id
+    void addMissionID(const std::string &id);
+
+    // Set the path to camera image file with misison ID
+    void setImagePath();
 
     /****************************/
 
@@ -148,6 +162,11 @@ public:
     bool FCU_BAT_exist(const sensor_msgs::BatteryState::ConstPtr &msg);
 
     bool FCU_GPS_exist(const mavros_msgs::GPSINPUT::ConstPtr &msg);
+
+    /*********************************/
+
+    // Check if it is necessary to send new Image of a device (camera)?
+    bool check_sendNewImage(const int _device);
 
     // Return status of a peripheral with it last and first Time
     int timeStatus(int _peripheral_index);

@@ -1,6 +1,6 @@
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/share/control_pkg/cmake/control_pkgConfig.cmake, /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig.cmake)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/share/control_pkg/cmake/control_pkgConfig-version.cmake, /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig-version.cmake)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/libcontrol_pkg.so, /home/pino/pino_ws/control_service/catkin_ws/devel/lib/libcontrol_pkg.so)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/pkgconfig/control_pkg.pc, /home/pino/pino_ws/control_service/catkin_ws/devel/lib/pkgconfig/control_pkg.pc)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/route, /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/route)
-Linked: (/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/lib/control_pkg/automatic, /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/automatic)
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig.cmake
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/share/control_pkg/cmake/control_pkgConfig-version.cmake
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/libcontrol_pkg.so
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/pkgconfig/control_pkg.pc
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/route
+Symlinking /home/pino/pino_ws/control_service/catkin_ws/devel/lib/control_pkg/automatic

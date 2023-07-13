@@ -12,7 +12,6 @@ install_space: install
 isolate_install: false
 jobs_args:
 - -j8
-- -j8
 licenses:
 - TODO
 log_space: logs
