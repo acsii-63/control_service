@@ -1,8 +1,0 @@
-prefix=/home/pino/pino_ws/control_service/catkin_ws/devel/.private/peripherals_status
-
-Name: peripherals_status
-Description: Description of peripherals_status
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

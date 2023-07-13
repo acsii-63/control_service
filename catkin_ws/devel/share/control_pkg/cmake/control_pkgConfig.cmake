@@ -1,1 +1,0 @@
-/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg/share/control_pkg/cmake/control_pkgConfig.cmake

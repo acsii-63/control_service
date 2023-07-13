@@ -1,8 +1,0 @@
-prefix=/home/pino/pino_ws/control_service/catkin_ws/devel/.private/control_pkg
-
-Name: control_pkg
-Description: Description of control_pkg
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
