@@ -1,9 +1,0 @@
-[16:48:34:649] Command started in process 17521.
-[16:48:49:649] roslaunch mavros apm.launch fcu_url:="udp://:14540@localhost:14557" Command started in thread 140007247099648.
-[16:49:9:650] Command started in process 17755.
-[16:49:14:650] rosservice call /controller/set_mode "mode: 1 
-sub : 4.0 
-timeout : 50" Command started in thread 140007238706944.
-[16:49:24:650] rosservice call /controller/set_mode "mode: 4 
-sub : 2.0 
-timeout : 50" Command started in thread 140007247099648.

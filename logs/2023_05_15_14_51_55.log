@@ -1,1 +1,0 @@
-[14:51:55:998] roslaunch px4 posix_sitl.launch > /home/pino/logs/roslaunch_logs/px4_log.log 2>&1 & Command started in thread 140443644237568.

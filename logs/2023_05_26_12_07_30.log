@@ -1,2 +1,0 @@
-[12:7:30:800] roslaunch px4 posix_sitl.launch > /home/pino/logs/roslaunch_logs/px4_log.log 2>&1 & Command started in thread 139698852374272.
-[12:7:45:800] roslaunch mavros px4.launch fcu_url:="udp://:14540@localhost:14557" > /home/pino/logs/roslaunch_logs/mavros_log.log 2>&1 & Command started in thread 139698852374272.

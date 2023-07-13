@@ -1,5 +1,0 @@
-[11:21:25:108] roslaunch mavros px4.launch fcu_url:="udp://:14540@localhost:14557" > /home/pino/logs/roslaunch_logs/mavros_log.log Command started in thread 140048998074112.
-[11:21:35:108] roslaunch geometric_controller automatic.launch > /home/pino/logs/roslaunch_logs/controller_log.log Command started in thread 140048998074112.
-[11:21:40:109] roslaunch realsense2_camera rs_d400_and_t265.launch > /home/pino/logs/roslaunch_logs/realsense_log.log Command started in thread 140048989681408.
-[11:21:45:109] roslaunch spinnaker_camera_driver color_cam.launch > /home/pino/logs/roslaunch_logs/spinnaker_log.log Command started in thread 140048981288704.
-[11:21:50:109] Waiting for client connection...

@@ -1,3 +1,0 @@
-[15:3:45:997] roslaunch px4 posix_sitl.launch Command started in thread 140550053119744.
-[15:4:0:998] roslaunch mavros px4.launch fcu_url:="udp://:14540@localhost:14557" Command started in thread 140550044727040.
-[15:4:20:998] roslaunch geometric_controller automatic.launch Command started in thread 140550036334336.

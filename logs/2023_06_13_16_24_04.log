@@ -1,2 +1,0 @@
-[16:24:4:175] roslaunch mavros px4.launch > /home/pino/logs/roslaunch_logs/mavros_log.log Command started in thread 140424505886464.
-[16:24:14:175] roslaunch geometric_controller automatic.launch > /home/pino/logs/roslaunch_logs/controller_log.log Command started in thread 140424497493760.
