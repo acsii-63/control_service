@@ -267,6 +267,92 @@ bool ActionSequenceAddition()
     return true;
 }
 
+bool TravelInstructionCleaner(const int &_index)
+{
+    const int planner = mission.sequence_istructions[_index]->Travel_getPlanner();
+
+    std::vector<std::string> node_list;
+    std::vector<std::string> ewok_node_list = {"offboard_node", "spline_optimization_example", "rviz"};
+
+    switch (planner)
+    {
+    case Planner::PLANNER_EGO:
+        node_list = ewok_node_list; // For testing with ewok
+        break;
+
+    case Planner::PLANNER_FAST:
+        node_list = ewok_node_list; // For testing with ewok
+        break;
+
+    case Planner::PLANNER_MARKER:
+        node_list = ewok_node_list; // For testing with ewok
+        break;
+
+    case Planner::PLANNER_SAFELAND:
+        node_list = ewok_node_list; // For testing with ewok
+        break;
+
+    default:
+        std::cerr << "Planner unspecified.\n";
+        return false;
+    }
+
+    std::vector<std::string> temp_vector;
+    std::vector<std::string> pid_list;
+    for (const auto &node : node_list)
+    {
+        temp_vector = PAPI::system::getPIDList(node);
+        pid_list.reserve(pid_list.size() + temp_vector.size());
+        pid_list.insert(pid_list.end(), temp_vector.begin(), temp_vector.end());
+        temp_vector.clear();
+    }
+
+    std::string command = "";
+    for (const auto &pid : pid_list)
+    {
+        command = "kill -9 " + pid;
+        std::system(command.c_str());
+        PAPI::system::sleepLessThanASecond(0.1);
+        command.clear();
+
+        std::cout << pid << " ";
+    }
+    std::cout << std::endl;
+
+    return true;
+}
+
+bool ActionInstructionCleaner(const int &_index)
+{
+    const int action = mission.sequence_istructions[_index]->Action_getAction();
+    switch (action)
+    {
+    case Action::ACTION_AUTOLAND:
+        break;
+
+    case Action::ACTION_DISARM:
+        break;
+
+    case Action::ACTION_RELEASE:
+        break;
+
+    case Action::ACTION_RTLHOME:
+        break;
+
+    case Action::ACTION_SELFCHECK:
+        break;
+
+    case Action::ACTION_TAKEOFF:
+        break;
+
+    default:
+        std::cerr << "Action unspecified.\n";
+        return false;
+    }
+
+    return true;
+}
+
 // [DEMO] Init the system, contain PX4, MAVROS and GEOMETRIC_CONTROLLER.
 bool demo()
 {
@@ -431,6 +517,31 @@ bool missionExecution()
             PAPI::system::sleepLessThanASecond(0.1);
             return false;
         }
+
+        { /* Travel Instruction Cleaner: */
+            if (mission.sequence_names[index] == "travel_sequence")
+            {
+                if (!TravelInstructionCleaner(index))
+                {
+                    PAPI::communication::sendMessage_echo_netcat("[ERROR] Fail to clean Travel Instruction.", DEFAULT_COMM_MSG_PORT);
+                    PAPI::system::sleepLessThanASecond(0.1);
+                    return false;
+                }
+            }
+        }
+
+        { /* Action Instruction Cleaner: */
+            if (mission.sequence_names[index] == "action_sequence")
+            {
+                if (!ActionInstructionCleaner(index))
+                {
+                    PAPI::communication::sendMessage_echo_netcat("[ERROR] Fail to clean Action Instruction.", DEFAULT_COMM_MSG_PORT);
+                    PAPI::system::sleepLessThanASecond(0.1);
+                    return false;
+                }
+            }
+        }
+
         ++index;
     }
 
