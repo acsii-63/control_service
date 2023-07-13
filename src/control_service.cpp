@@ -128,29 +128,32 @@ bool initCheck()
 
     std::cout << "PASS #3.\n"; /************************************/
 
-    if (flags.size() < num_of_images && num_of_images > 0)
+    if (num_of_images > 0)
     {
-        PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Missing FLAG(s) after TIMEOUT duration.", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-        return false;
-    }
-    else
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ INFO] Got enough Image confirmation from GCS.", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-        // flags = PAPI::system::readAllFLAGsFromFile(DEFAULT_MESSAGE_FILE_PATH);
-    }
+        if (flags.size() < num_of_images)
+        {
+            PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Missing FLAG(s) after TIMEOUT duration.", DEFAULT_COMM_MSG_PORT);
+            PAPI::system::sleepLessThanASecond(0.1);
+            return false;
+        }
+        else
+        {
+            PAPI::communication::sendMessage_echo_netcat("[ INFO] Got enough Image confirmation from GCS.", DEFAULT_COMM_MSG_PORT);
+            PAPI::system::sleepLessThanASecond(0.1);
+            // flags = PAPI::system::readAllFLAGsFromFile(DEFAULT_MESSAGE_FILE_PATH);
+        }
 
-    if (!PAPI::system::checkAllFLAG(flags))
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Reject from GCS (Camera).", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
-        return false;
-    }
-    else
-    {
-        PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS (Camera).", DEFAULT_COMM_MSG_PORT);
-        PAPI::system::sleepLessThanASecond(0.1);
+        if (!PAPI::system::checkAllFLAG(flags))
+        {
+            PAPI::communication::sendMessage_echo_netcat("[ERROR] Stop Init: Reject from GCS (Camera).", DEFAULT_COMM_MSG_PORT);
+            PAPI::system::sleepLessThanASecond(0.1);
+            return false;
+        }
+        else
+        {
+            PAPI::communication::sendMessage_echo_netcat("[ INFO] Allowed from GCS (Camera).", DEFAULT_COMM_MSG_PORT);
+            PAPI::system::sleepLessThanASecond(0.1);
+        }
     }
 
     // if (!PAPI::drone::peripheralsCheck(peripherals_status_vector))
@@ -225,7 +228,7 @@ bool InitSequenceAddition()
     server_peripherals.sendMsg(mission.id);
     std::cout << "id: " << mission.id << std::endl;
     PAPI::system::sleepLessThanASecond(0.5);
-    
+
     /************************************/
 
     /* Send Image, Status and get Response: */
