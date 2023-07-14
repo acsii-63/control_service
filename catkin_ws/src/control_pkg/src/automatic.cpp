@@ -109,8 +109,7 @@ int main(int argc, char **argv)
         peripherals_status->callBack_exist();
 
         server.sendMsg(peripherals_status->getStatus_toString());
-        // server.sendMsg(route_status->routeMessageFoward());
-        // peripherals_status->debug();
+
         ros::spinOnce();
         ros::Duration(0.1).sleep();
     }

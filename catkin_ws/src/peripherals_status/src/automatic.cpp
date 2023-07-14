@@ -81,18 +81,18 @@ void closeSocket()
 
 int main(int argc, char **argv)
 {
-    if (connectToControlService() == -1)
-    {
-        std::cerr << "Cannot connect to control service.\n";
-        return -1;
-    }
+    // if (connectToControlService() == -1)
+    // {
+    //     std::cerr << "Cannot connect to control service.\n";
+    //     return -1;
+    // }
 
     ros::init(argc, argv, "automatic");
     ros::NodeHandle nh("");
     PeripheralsStatus *peripherals_status = new PeripheralsStatus(nh);
 
-    // std::vector<int> list{DEVICE::FLIR, DEVICE::D455, DEVICE::T265};
-    addPeripherals();
+    std::vector<int> list{DEVICE::FLIR};
+    // addPeripherals();
     peripherals_status->addPeripherals(list);
 
     while (ros::ok())
@@ -100,8 +100,9 @@ int main(int argc, char **argv)
         // peripherals_status->debug();
 
         peripherals_status->callBack_exist();
+        peripherals_status->debug();
 
-        server.sendMsg(peripherals_status->getStatus_toString());
+        // server.sendMsg(peripherals_status->getStatus_toString());
         
         ros::spinOnce();
         ros::Duration(0.1).sleep();

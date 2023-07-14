@@ -67,6 +67,7 @@ void PeripheralsStatus::FLIR_CallBack(const wfov_camera_msgs::WFOVImage::ConstPt
             }
             cv::Mat cv_image = cv_ptr->image;
             if (!cv::imwrite(FLIR_image_path, cv_image))
+            // if (!cv::imwrite("/home/pino/image/image.png", cv_image))
             {
                 ROS_ERROR("Can not write FLIR image to: %s", FLIR_image_path.c_str());
                 FLIR_image_exist = false;
@@ -510,7 +511,8 @@ void PeripheralsStatus::addMissionID(const std::string &id)
 
 void PeripheralsStatus::setImagePath()
 {
-    FLIR_image_path += mission_id + "-" + DEFAULT_FLIR_PNG;
+    // FLIR_image_path += mission_id + "-" + DEFAULT_FLIR_PNG;
+    FLIR_image_path = DEFAULT_IMAGE_DIR_PATH + mission_id + "-" + DEFAULT_FLIR_PNG;
     D455_image_path += mission_id + "-" + DEFAULT_D455_PNG;
     T265_image_path += mission_id + "-" + DEFAULT_T265_PNG;
 }
